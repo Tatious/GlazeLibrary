@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Nunito", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background-color: #fefdfb; /* clay-50 */
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #1a1a1a; /* earth-900 */
+  }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* ===== FOCUS RING STYLES ===== */
+/* Consistent focus ring animation across the entire site */
+@layer utilities {
+  /* Base focus ring class - use on any interactive element */
+  .focus-ring {
+    @apply outline-none transition-shadow duration-150;
+  }
+
+  .focus-ring:focus-visible {
+    @apply ring-2 ring-sage-500/50 ring-offset-2 ring-offset-white dark:ring-offset-earth-900;
+  }
+
+  /* Focus ring for elements inside a container */
+  .focus-ring-within:focus-within {
+    @apply ring-2 ring-sage-500/50 ring-offset-2 ring-offset-white dark:ring-offset-earth-900 rounded-lg;
+  }
+
+  /* Inset focus ring for dense list rows (no offset, tight to the row). */
+  .focus-ring-inset {
+    @apply outline-none transition-shadow duration-150;
+  }
+  .focus-ring-inset:focus-visible {
+    @apply ring-1 ring-sage-500 ring-inset;
+  }
+}
+
+/* Global focus styles for native elements */
+@layer base {
+  /* Links and buttons */
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline-none ring-2 ring-sage-500/50 ring-offset-2 ring-offset-white dark:ring-offset-earth-900 rounded;
+    transition: box-shadow 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Form inputs */
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-sage-500/50 border-sage-400;
+    transition:
+      box-shadow 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color 0.15s ease;
+  }
+
+  /* Remove default focus outline on elements that will use ring */
+  *:focus {
+    outline: none;
+  }
+
+  /* Keyboard-only focus (not mouse) */
+  *:focus:not(:focus-visible) {
+    box-shadow: none;
+    ring: none;
+  }
+}
+
+/* iOS Safari auto-zooms the viewport whenever a focused input/select/
+   textarea has a font-size below 16px. We use `text-sm` (14px) in many
+   places for visual density, so on touch devices we floor the
+   *intrinsic* font-size to 16px — desktop keeps its 14px density,
+   touch devices stop getting the disruptive auto-zoom.
+   `(hover: none) and (pointer: coarse)` is the standard touch-only
+   sniff. `!important` is required because Tailwind's `.text-sm`
+   utility class has higher selector specificity than a bare-tag rule;
+   without it, every `<Input>` and hand-rolled `<input class="text-sm">`
+   in the app would still trigger the zoom. */
+@media (hover: none) and (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ===== CARD HOVER STYLES ===== */
+/* Consistent card hover effects - applied via Framer Motion but defined here for reference */
+@layer utilities {
+  .card-hover {
+    @apply transition-all duration-200;
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-0.5 shadow-lg;
+  }
+}
+
+/* Custom scrollbar for the virtualized list */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(47, 168, 102, 0.4) transparent; /* sage-500 with opacity */
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(47, 168, 102, 0.4); /* sage-500 with opacity */
+    border-radius: 20px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(47, 168, 102, 0.6);
+  }
+}
+
+/* Global selection color */
+::selection {
+  background-color: rgba(47, 168, 102, 0.2);
+  color: inherit;
+}

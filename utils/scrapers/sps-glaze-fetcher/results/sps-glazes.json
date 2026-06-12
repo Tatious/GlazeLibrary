@@ -1,0 +1,2615 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-01-23T16:47:40.638947",
+  "source": "seattlepotterysupply.com",
+  "totalCount": 47,
+  "glazes": [
+    {
+      "code": "SP1",
+      "name": "Discontinued Basic White",
+      "displayName": "SP1 - Discontinued Basic White",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/basic-white",
+      "description": "SP1 - Basic White An opaque semi matte white that becomes less opaque at higher firing temps",
+      "images": [
+        {
+          "id": "sp1-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/BasicWhitecone5.3.png?v=1717180272",
+          "localPath": "/images/glazes/sps/sp1.jpg",
+          "alt": "Discontinued SP1 - Basic White",
+          "type": "product",
+          "isPrimary": true
+        }
+      ],
+      "discontinued": true,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP2",
+      "name": "Sand",
+      "displayName": "SP2 - Sand",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp2-sand",
+      "description": "SP2 - Sand CONE 4 - 6 Glossy, opaque, creamy white, with semi-dense black peppering throughout. Breaks over texture leaving speckles. This glaze can be a bit \"fluxy\", meaning it can run. Leave room at the bottom of your pieces or apply in lighter coats. Even better . use it on top of other glazes to see some amazing results! .",
+      "images": [
+        {
+          "id": "sp2-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP2Sand_3.jpg?v=1762652057",
+          "localPath": "/images/glazes/sps/sp2.jpg",
+          "alt": "SP2 - Sand",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp2-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/89.png?v=1762652057",
+          "localPath": "/images/glazes/sps/sp2-2.jpg",
+          "alt": "SP2 - Sand",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp2-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/65.jpg?v=1762652057",
+          "localPath": "/images/glazes/sps/sp2-3.jpg",
+          "alt": "SP2 - Sand",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp2-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Eclipse_SP2_Sand_Moira_Burkhart.jpg?v=1762652057",
+          "localPath": "/images/glazes/sps/sp2-4.jpg",
+          "alt": "SP2 - Sand",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp2-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP2andSP15by_BC6jessicarnage_d944b7dd-6189-417c-ba33-1e5eda357bea.jpg?v=1762652057",
+          "localPath": "/images/glazes/sps/sp2-5.jpg",
+          "alt": "SP2 - Sand",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp2-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP2SandGlaze.jpg?v=1762652057",
+          "localPath": "/images/glazes/sps/sp2-6.jpg",
+          "alt": "SP2 - Sand",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP4",
+      "name": "Green Mottled",
+      "displayName": "SP4 - Green Mottled",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/green-mottled",
+      "description": "SP4 - Green Mottled A semi opaque blue-green glaze with a mottled surface full of deep green splotches",
+      "images": [
+        {
+          "id": "sp4-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP4GreenMottled.png?v=1717180611",
+          "localPath": "/images/glazes/sps/sp4.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp4-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP4StandingTile2.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-2.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp4-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP4StandingTile.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-3.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp4-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/greenmottledoverklamathyellowfrank_1.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-4.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp4-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP4GreenMottledonSeaMix5w_Sand.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-5.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp4-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Fools_gold_SPS_Green_Mottled_White_Satin_eraverastudio_580223d5-fd73-40c8-ad91-d32ea7abccd0.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-6.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp4-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Klamath_Yellow_SP4_Green_Mottled_pottery_by_suzanne_2.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-7.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp4-8",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/61.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-8.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp4-9",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/green_mottled_ochre_glaze_seamix_6.png?v=1765051397",
+          "localPath": "/images/glazes/sps/sp4-9.jpg",
+          "alt": "SP4 - Green Mottled",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP5",
+      "name": "Light Blue Mottled",
+      "displayName": "SP5 - Light Blue Mottled",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/light-blue-mottled",
+      "description": "SP5 - Light Blue Mottled An opaque blue mottled glaze with blues ranging from deep cobalt to a pure robin's egg blue",
+      "images": [
+        {
+          "id": "sp5-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP5LightBlueMottled_1.jpg?v=1762651904",
+          "localPath": "/images/glazes/sps/sp5.jpg",
+          "alt": "SP5 - Light Blue Mottled",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp5-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/CKK6withlightbluemottled.jpg?v=1762651904",
+          "localPath": "/images/glazes/sps/sp5-2.jpg",
+          "alt": "SP5 - Light Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp5-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP5LightBlueMottledonGraySpec.jpg?v=1762651904",
+          "localPath": "/images/glazes/sps/sp5-3.jpg",
+          "alt": "SP5 - Light Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp5-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/52.jpg?v=1762651904",
+          "localPath": "/images/glazes/sps/sp5-4.jpg",
+          "alt": "SP5 - Light Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp5-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/light_blue_mottled_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp5-5.jpg",
+          "alt": "SP5 - Light Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp5-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/SeattleFreezeclayandMottledBlueGlaze_1_79530a08-4b00-4292-8ab4-127ef5a53018.jpg?v=1762651904",
+          "localPath": "/images/glazes/sps/sp5-6.jpg",
+          "alt": "SP5 - Light Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP6",
+      "name": "Brown Mottled",
+      "displayName": "SP6 - Brown Mottled",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/brown-mottled",
+      "description": "SP6 - Brown Mottled A semi-transparent amber glaze with a tan mottled surface and rust highlights. Full Safety Data Sheet is available upon request. Glaze in wet form poses no or low health risk and no inhalation risk. Once glaze has dried, there may be dust generated by cleaning and working processes. In the event that dust is generated, use local exhaust ventilation or other engineering controls as required to maintain exposures below applicable occupational exposure limits (TLV). Do not dispo",
+      "images": [
+        {
+          "id": "sp6-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP6.jpg?v=1765911434",
+          "localPath": "/images/glazes/sps/sp6.jpg",
+          "alt": "SP6 - Brown Mottled",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp6-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/APC_0956.jpg?v=1767136206",
+          "localPath": "/images/glazes/sps/sp6-2.jpg",
+          "alt": "SP6 - Brown Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp6-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Hellborn_Red_with_SP6_Brown_Mottled_bottom_and_custom_glaze_mix_Work_and_photo_by_orna_pottery.jpg?v=1767136206",
+          "localPath": "/images/glazes/sps/sp6-3.jpg",
+          "alt": "SP6 - Brown Mottled",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP7",
+      "name": "Yellow Stain",
+      "displayName": "SP7 - Yellow Stain",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/yellow-stain",
+      "description": "SP7 - Yellow Stain Beautiful sunshine yellow with a light white break. Even opaque coverage when applied with 3 layers. FIRING RANGE CONE 4 - 6 .",
+      "images": [
+        {
+          "id": "sp7-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/yellow_stain_tile_36cd33f0-6e2c-4400-ba26-004e64b1d820.jpg?v=1758658012",
+          "localPath": "/images/glazes/sps/sp7.jpg",
+          "alt": "SP7 - Yellow Stain",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp7-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/yellow_stain_cone.jpg?v=1758658418",
+          "localPath": "/images/glazes/sps/sp7-2.jpg",
+          "alt": "SP7 - Yellow Stain",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP8",
+      "name": "Opaque White",
+      "displayName": "SP8 - Opaque White",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/opaque-white",
+      "description": "SP8 - Opaque White For CONE 0 4 - 6 A glossy opaque white glaze. An all-time favorite, go-to white glaze. This glaze can be flux-y when used heavily, watch your bottoms and test when using in combination. ___________ .",
+      "images": [
+        {
+          "id": "sp8-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP58OpaqueWhite.jpg?v=1762454239",
+          "localPath": "/images/glazes/sps/sp8.jpg",
+          "alt": "SP8 - Opaque White",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp8-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP08OpaqueWhiteGS.png?v=1768595502",
+          "localPath": "/images/glazes/sps/sp8-2.jpg",
+          "alt": "SP8 - Opaque White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp8-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP8OpaqueWhiteonKlamathBrown.jpg?v=1768595502",
+          "localPath": "/images/glazes/sps/sp8-3.jpg",
+          "alt": "SP8 - Opaque White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp8-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/preview_images/045b40d499fa4293a441ae99443c9315.thumbnail.0000000000.jpg?v=1762906622",
+          "localPath": "/images/glazes/sps/sp8-4.jpg",
+          "alt": "Opaque White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp8-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Mossy_Green_Opaque_white_seam_ix_6.jpg?v=1768595502",
+          "localPath": "/images/glazes/sps/sp8-5.jpg",
+          "alt": "SP8 - Opaque White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp8-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Shadow_Green_over_Opaque_White_pottery.by.kay.jpg?v=1768595502",
+          "localPath": "/images/glazes/sps/sp8-6.jpg",
+          "alt": "SP8 - Opaque White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp8-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Opaque_White_SPS_black_casting_slip__pottery.by.kay.jpg?v=1768595502",
+          "localPath": "/images/glazes/sps/sp8-7.jpg",
+          "alt": "SP8 - Opaque White",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP10",
+      "name": "Gray Blue Mottled",
+      "displayName": "SP10 - Gray Blue Mottled",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/gray-blue-mottled",
+      "description": "SP10 - Gray Blue Mottled A grey blue mottled glaze that breaks into a transparent olive green",
+      "images": [
+        {
+          "id": "sp10-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP10GrayBlueMottled_1.jpg?v=1762651811",
+          "localPath": "/images/glazes/sps/sp10.jpg",
+          "alt": "SP10 - Gray Blue Mottled",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp10-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/amaco_celadon_fog_left_sps_gray_blue_mottled_right_cao2zu3xin1.jpg?v=1762651811",
+          "localPath": "/images/glazes/sps/sp10-2.jpg",
+          "alt": "SP10 - Gray Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp10-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/gray_blue_mottled_glaze_CKK6_cao2zu3xn1.jpg?v=1762651811",
+          "localPath": "/images/glazes/sps/sp10-3.jpg",
+          "alt": "SP10 - Gray Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp10-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Hellborn_Red_Gray_Blue_Mottled_chrome_green_potteriewithst_1.jpg?v=1765400363",
+          "localPath": "/images/glazes/sps/sp10-4.jpg",
+          "alt": "SP10 - Gray Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp10-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/clay_tiles_4.png?v=1762651811",
+          "localPath": "/images/glazes/sps/sp10-5.jpg",
+          "alt": "SP10 - Gray Blue Mottled",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP11",
+      "name": "Ochre",
+      "displayName": "SP11 - Ochre",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/ochre",
+      "description": "SP11 - Ochre Fires to CONE 0 4 - 6 A glossy deep brown flux-y glaze with tan mottled surface. Breaks into a transparent chocolate brown and floats beautifully over other glazes. On it's own you can see some amazing green and blues being pulled out from under the darker surface. Note: this is a very fluid glaze and will run if applied too thickly. Leave at least a 1/2\" space at the bottom of pieces for potential running. Use moderation for best results! ___________ .",
+      "images": [
+        {
+          "id": "sp11-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP11Ochre.png?v=1717180940",
+          "localPath": "/images/glazes/sps/sp11.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp11-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/ochre_glaze_ckk6__cao2zu3xin1.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-2.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP11StandingTile2.jpg?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-3.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP11StandingTile.jpg?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-4.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Ochre_on_Gray_Speckled_Reggina_Beneditti.jpg?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-5.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Ochre_on_Klamath_Yellow_Reggina_Beneditti.jpg?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-6.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/ochrejacques.jpg?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-7.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-8",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/55.jpg?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-8.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-9",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/light_blue_mottled_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-9.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-10",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/green_mottled_ochre_glaze_seamix_6.png?v=1765051397",
+          "localPath": "/images/glazes/sps/sp11-10.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-11",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/satin_white_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-11.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-12",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/turquoise_green_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-12.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-13",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/oatmeal_rust_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-13.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-14",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/sky_blue_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp11-14.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp11-15",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP11OchreGS.png?v=1768595442",
+          "localPath": "/images/glazes/sps/sp11-15.jpg",
+          "alt": "SP11 - Ochre",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP12",
+      "name": "Molasses",
+      "displayName": "SP12 - Molasses",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/molasses",
+      "description": "SP12 - Molasses FIRING RANGE CONE 4 - 6 A deep, luscious brown with the rich, syrupy goodness of its namesake. This glaze creates a warm, organic (can we say a little mid-century retro?) finish that’s ideal for rustic ware or accent pieces",
+      "images": [
+        {
+          "id": "sp12-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP12Molasses.jpg?v=1762651755",
+          "localPath": "/images/glazes/sps/sp12.jpg",
+          "alt": "SP12 - Molasses",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp12-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/molasses_over_speckled_ivory.jpg?v=1762651959",
+          "localPath": "/images/glazes/sps/sp12-2.jpg",
+          "alt": "SP12 - Molasses",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP13",
+      "name": "Black Stain",
+      "displayName": "SP13 - Black Stain",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/black-stain",
+      "description": "SP13 - Black Stain A deep black glaze with a blue mottled surface. Full Safety Data Sheet is available upon request. Glaze in wet form poses no or low health risk and no inhalation risk. Once glaze has dried, there may be dust generated by cleaning and working processes. In the event that dust is generated, use local exhaust ventilation or other engineering controls as required to maintain exposures below applicable occupational exposure limits (TLV). Do not dispose of into sinks or toilets. Nev",
+      "images": [
+        {
+          "id": "sp13-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP13BlackStain.jpg?v=1762453664",
+          "localPath": "/images/glazes/sps/sp13.jpg",
+          "alt": "SP13 - Black Stain",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp13-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/133.png?v=1762453664",
+          "localPath": "/images/glazes/sps/sp13-2.jpg",
+          "alt": "SP13 - Black Stain",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp13-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/149.png?v=1768595405",
+          "localPath": "/images/glazes/sps/sp13-3.jpg",
+          "alt": "SP13 - Black Stain",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP15",
+      "name": "Turquoise",
+      "displayName": "SP15 - Turquoise",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp15-turquoise",
+      "description": "SP15 - Turquoise Turquoise is one of our favorite glazes for obvious reasons (the glorious bright color). It goes on seamlessly with a brush, breaks nicely on the edges, and combines with just about everything. And, oh! again, the color. Note: this is a very fluid glaze and will run if applied too thickly. Use moderation for best results! _______ .",
+      "images": [
+        {
+          "id": "sp15-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP15Turquoise.jpg?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp15-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP15TurquoiseonKlamathBuff.jpg?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-2.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Turquoiseglazecombos.png?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-3.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_sp15_Turquoise.jpg?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-4.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/49.jpg?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-5.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/75.png?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-6.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP32WhiteSatinoverSP15Turquoise.jpg?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-7.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-8",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP2andSP15by_BC6jessicarnage.jpg?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-8.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-9",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP15TurquoiseonSpeckledSeaMix.jpg?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-9.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-10",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_sp15_Turquoise_Denny_Porter.jpg?v=1767118512",
+          "localPath": "/images/glazes/sps/sp15-10.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp15-11",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/IMG_29872.png?v=1762454031",
+          "localPath": "/images/glazes/sps/sp15-11.jpg",
+          "alt": "SP15 - Turquoise",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP17",
+      "name": "Burnt Orange",
+      "displayName": "SP17 - Burnt Orange",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp17-burnt-orange",
+      "description": "SP17 - Burnt Orange For CONE 0 4 - 6 A toasty orange-red glaze that can get semi opaque where thick",
+      "images": [
+        {
+          "id": "sp17-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP17BurntOrange.jpg?v=1762454077",
+          "localPath": "/images/glazes/sps/sp17.jpg",
+          "alt": "SP17 - Burnt Orange",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp17-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/135.png?v=1762454077",
+          "localPath": "/images/glazes/sps/sp17-2.jpg",
+          "alt": "SP17 - Burnt Orange",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp17-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/claytiles_11_be6b8c6d-11f1-4697-a31a-2cd0434a3b60.png?v=1762454077",
+          "localPath": "/images/glazes/sps/sp17-3.jpg",
+          "alt": "SP17 - Burnt Orange",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp17-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/137_4c5c1577-4584-4dbb-95cc-b4508bb5be20.png?v=1762454077",
+          "localPath": "/images/glazes/sps/sp17-4.jpg",
+          "alt": "SP17 - Burnt Orange",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP18",
+      "name": "Turquoise Green",
+      "displayName": "SP18 - Turquoise Green",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/turquoise-green",
+      "description": "SP18 - Turquoise Green For CONE 0 4 - 6 A lime green glaze that pools into cracks as a mottled turquoise blue. Breaks translucent green",
+      "images": [
+        {
+          "id": "sp18-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP-18_Turquoise_Green_Test_Tile_1_1.jpg?v=1758663931",
+          "localPath": "/images/glazes/sps/sp18.jpg",
+          "alt": "SP18 - Turquoise Green",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp18-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP23RutileTan_SP18TurquoiseGreenonVashonBuff_e6b963cb-7e49-4a13-b383-46a0989090de.jpg?v=1758663931",
+          "localPath": "/images/glazes/sps/sp18-2.jpg",
+          "alt": "SP18 - Turquoise Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp18-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/53.jpg?v=1758833246",
+          "localPath": "/images/glazes/sps/sp18-3.jpg",
+          "alt": "SP18 - Turquoise Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp18-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/82.png?v=1758833246",
+          "localPath": "/images/glazes/sps/sp18-4.jpg",
+          "alt": "SP18 - Turquoise Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp18-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/claytiles_1.png?v=1758845393",
+          "localPath": "/images/glazes/sps/sp18-5.jpg",
+          "alt": "SP18 - Turquoise Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp18-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/turquoise_green_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp18-6.jpg",
+          "alt": "SP18 - Turquoise Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp18-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Klamath_Red_with_SP55_Oatmeal_SP18_Turquoise_Green_exterior_Mayco_Norse_Blue_interior.jpg?v=1765402221",
+          "localPath": "/images/glazes/sps/sp18-7.jpg",
+          "alt": "SP18 - Turquoise Green",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP19",
+      "name": "Stormy Gray",
+      "displayName": "SP19 - Stormy Gray",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/stormy-gray",
+      "description": "SP19 - Stormy Gray A deep brown glaze with a slightly iridescent mottled surface",
+      "images": [
+        {
+          "id": "sp19-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP19StormyGray.jpg?v=1769017114",
+          "localPath": "/images/glazes/sps/sp19.jpg",
+          "alt": "A square Seattle Pottery Supply glaze example tile in a rich, speckled purple gray with some breaks. This is a sample of SP19 Stormy Gray midrange pottery glaze",
+          "type": "product",
+          "isPrimary": true
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP22",
+      "name": "Chrome Green",
+      "displayName": "SP22 - Chrome Green",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp22-chrome-green",
+      "description": "SP22 - Chrome Green Fires to CONE 0 4 - 6 An opaque chrome green glaze that breaks to golden-tan .",
+      "images": [
+        {
+          "id": "sp22-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP22.jpg?v=1762453901",
+          "localPath": "/images/glazes/sps/sp22.jpg",
+          "alt": "SP22 - Chrome Green",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp22-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP22ChromeGreenonGraySpec.jpg?v=1762453901",
+          "localPath": "/images/glazes/sps/sp22-2.jpg",
+          "alt": "SP22 - Chrome Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp22-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_sp22_Chrome_Green.jpg?v=1762453901",
+          "localPath": "/images/glazes/sps/sp22-3.jpg",
+          "alt": "SP22 - Chrome Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp22-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Hellborn_Red_Gray_Blue_Mottled_chrome_green_potteriewithst_1.jpg?v=1765400363",
+          "localPath": "/images/glazes/sps/sp22-4.jpg",
+          "alt": "SP22 - Chrome Green",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP24",
+      "name": "Deep Crystal Blue",
+      "displayName": "SP24 - Deep Crystal Blue",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp24-deep-crystal-blue",
+      "description": "SP24 - Deep Crystal Blue A deep cobalt blue that breaks to a pale bluish white",
+      "images": [
+        {
+          "id": "sp24-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP24DeepCrystalBlue_1.png?v=1717192272",
+          "localPath": "/images/glazes/sps/sp24.jpg",
+          "alt": "SP24 - Deep Crystal Blue",
+          "type": "product",
+          "isPrimary": true
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP25",
+      "name": "Dark Blue Mottled",
+      "displayName": "SP25 - Dark Blue Mottled",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp25-dark-blue-mottled",
+      "description": "SP25 - Dark Blue Mottled A deep cobalt blue midrange glaze, with a lighter blue mottled surface",
+      "images": [
+        {
+          "id": "sp25-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP25DarkBlueMottled.jpg?v=1762651929",
+          "localPath": "/images/glazes/sps/sp25.jpg",
+          "alt": "SP25 - Dark Blue Mottled",
+          "type": "product",
+          "isPrimary": true
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP27",
+      "name": "Peacock",
+      "displayName": "SP27 - Peacock",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp27-peacock",
+      "description": "SP27 - Peacock A beautiful bold teal glaze that shines on most clay bodies. The opacity of this glaze is complimented with lighter sea green mottling, highlighting texture of the piece beneath",
+      "images": [
+        {
+          "id": "sp27-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP27-_Peacock_Test_Tile_1.jpg?v=1762453772",
+          "localPath": "/images/glazes/sps/sp27.jpg",
+          "alt": "SP27 - Peacock",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp27-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/56.jpg?v=1758738147",
+          "localPath": "/images/glazes/sps/sp27-2.jpg",
+          "alt": "SP27 - Peacock",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP29",
+      "name": "Clear",
+      "displayName": "SP29 - Clear",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/clear",
+      "description": "SP29 - Clear, Zinc-free For CONE 4 - 6 A zinc-free midrange clear glaze. SPS glazes are made in small batches and with extreme attention to quality control. Lead free and safe for dinnerware",
+      "images": [
+        {
+          "id": "sp29-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP29Clear.jpg?v=1762453633",
+          "localPath": "/images/glazes/sps/sp29.jpg",
+          "alt": "SP29 - Clear",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp29-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Fool_sGoldClearGlaze.jpg?v=1762453633",
+          "localPath": "/images/glazes/sps/sp29-2.jpg",
+          "alt": "SP29 - Clear",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp29-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_sp29_clear.jpg?v=1762453633",
+          "localPath": "/images/glazes/sps/sp29-3.jpg",
+          "alt": "SP29 - Clear",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp29-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP29ClearglazeonKlamathYellowclay.jpg?v=1762453633",
+          "localPath": "/images/glazes/sps/sp29-4.jpg",
+          "alt": "SP29 - Clear",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp29-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Eclipsefinalfireclear.jpg?v=1762453633",
+          "localPath": "/images/glazes/sps/sp29-5.jpg",
+          "alt": "SP29 - Clear",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp29-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP29ClearGS.png?v=1768595534",
+          "localPath": "/images/glazes/sps/sp29-6.jpg",
+          "alt": "SP29 - Clear",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP31",
+      "name": "Speckled Ivory",
+      "displayName": "SP31 - Speckled Ivory",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/speckled-ivory",
+      "description": "SP31 - Speckled Ivory For CONE 4 - 6 Creamy and inviting with natural, speckled variation. A studio staple for layering or letting its subtle complexity shine on its own",
+      "images": [
+        {
+          "id": "sp31-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP31.jpg?v=1762651959",
+          "localPath": "/images/glazes/sps/sp31.jpg",
+          "alt": "SP31 - Speckled Ivory",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp31-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/molasses_over_speckled_ivory.jpg?v=1762651959",
+          "localPath": "/images/glazes/sps/sp31-2.jpg",
+          "alt": "SP31 - Speckled Ivory",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP32",
+      "name": "White Satin",
+      "displayName": "SP32 - White Satin",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/white-satin",
+      "description": "SP32 - White Satin Fires to CONE 4 - 6 An opaque glossy white glaze with subtle red speckles. Layers beautifully with other glazes",
+      "images": [
+        {
+          "id": "sp32-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP32WhiteSatin.jpg?v=1762454120",
+          "localPath": "/images/glazes/sps/sp32.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp32-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/sp32whitesatin.jpg?v=1762454120",
+          "localPath": "/images/glazes/sps/sp32-2.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp32-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/91.png?v=1762454120",
+          "localPath": "/images/glazes/sps/sp32-3.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp32-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/79.png?v=1762454128",
+          "localPath": "/images/glazes/sps/sp32-4.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp32-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/78_d931dfa8-9465-4182-98c2-abe74e2acbd4.png?v=1762454128",
+          "localPath": "/images/glazes/sps/sp32-5.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp32-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/92.png?v=1762454128",
+          "localPath": "/images/glazes/sps/sp32-6.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp32-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Fools_gold_SPS_Green_Mottled_White_Satin_eraverastudio_580223d5-fd73-40c8-ad91-d32ea7abccd0.jpg?v=1765051397",
+          "localPath": "/images/glazes/sps/sp32-7.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp32-8",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Fool_s_Gold_clay_with_SPS_Nickel_Brown_and_White_Satin_hue.organic.jpg?v=1762454120",
+          "localPath": "/images/glazes/sps/sp32-8.jpg",
+          "alt": "SP32 - White Satin",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP34",
+      "name": "Blue Satin",
+      "displayName": "SP34 - Blue Satin",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/blue-satin",
+      "description": "SP34 - Blue Satin For CONE 4 - 6 A silky, soft-touch blue with a gentle sheen that breaks to a pale chartreuse—a bit like the sky after the clouds clear. This satin finish glaze serves a serene, sophisticated calm",
+      "images": [
+        {
+          "id": "sp34-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP34BlueSatin_2.jpg?v=1764879816",
+          "localPath": "/images/glazes/sps/sp34.jpg",
+          "alt": "SP34 - Blue Satin",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp34-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP55OatmealRust_SP34BlueSatinonKlamathWhite_b5052dc5-2a4b-4d2d-ac0c-0b864871fabf.jpg?v=1764879816",
+          "localPath": "/images/glazes/sps/sp34-2.jpg",
+          "alt": "SP34 - Blue Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp34-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/moss_black_blue_satin.jpg?v=1764879816",
+          "localPath": "/images/glazes/sps/sp34-3.jpg",
+          "alt": "SP34 - Blue Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp34-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/clay_tiles.jpg?v=1764879816",
+          "localPath": "/images/glazes/sps/sp34-4.jpg",
+          "alt": "SP34 - Blue Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp34-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/SP34BlueSatin-1.jpg?v=1764879816",
+          "localPath": "/images/glazes/sps/sp34-5.jpg",
+          "alt": "SP34 - Blue Satin",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP35",
+      "name": "Black Satin",
+      "displayName": "SP35 - Black Satin",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/black-satin",
+      "description": "SP35 - Black Satin A deep glossy black that breaks brown",
+      "images": [
+        {
+          "id": "sp35-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP35BlackSatin_9e55e47a-503d-4b6c-896f-7255e03b3b6c.png?v=1717182666",
+          "localPath": "/images/glazes/sps/sp35.jpg",
+          "alt": "SP35 - Black Satin",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp35-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/134.png?v=1759537582",
+          "localPath": "/images/glazes/sps/sp35-2.jpg",
+          "alt": "SP35 - Black Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp35-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/64.jpg?v=1762652111",
+          "localPath": "/images/glazes/sps/sp35-3.jpg",
+          "alt": "SP35 - Black Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp35-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/58.jpg?v=1759537582",
+          "localPath": "/images/glazes/sps/sp35-4.jpg",
+          "alt": "SP35 - Black Satin",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP36",
+      "name": "Green Satin",
+      "displayName": "SP36 - Green Satin",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/green-satin",
+      "description": "SP36 - Green Satin For CONE 4 - 6 Organic and leafy, this smooth green satin glaze brings nature’s tones to your work with a lovely soft green that breaks tan. Excellent layering potential",
+      "images": [
+        {
+          "id": "sp36-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP36GreenSatin_3.jpg?v=1764879959",
+          "localPath": "/images/glazes/sps/sp36.jpg",
+          "alt": "SP36 - Green Satin",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp36-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP36_Green_Satin_saubhagyasart.jpg?v=1764879959",
+          "localPath": "/images/glazes/sps/sp36-2.jpg",
+          "alt": "SP36 - Green Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp36-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/73.png?v=1764879959",
+          "localPath": "/images/glazes/sps/sp36-3.jpg",
+          "alt": "SP36 - Green Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp36-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/74.png?v=1764879959",
+          "localPath": "/images/glazes/sps/sp36-4.jpg",
+          "alt": "SP36 - Green Satin",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp36-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/63.jpg?v=1764879959",
+          "localPath": "/images/glazes/sps/sp36-5.jpg",
+          "alt": "SP36 - Green Satin",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP37",
+      "name": "Turquoise Matte",
+      "displayName": "SP37 - Turquoise Matte",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/turquoise-matt",
+      "description": "SP37 - Turquoise Matte For CONE 4 - 6 A semi-opaque and satiny deep turquoise green glaze. This product will darken and create a slight crystallization where it pools. This glaze does have a tendency to crawl so make sure not to apply too heavily! This glaze does not pass our leeching test and should only be used for decorative or exterior surfaces that do not interact directly with food",
+      "images": [
+        {
+          "id": "sp37-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP37TurquoiseMatte.jpg?v=1762453564",
+          "localPath": "/images/glazes/sps/sp37.jpg",
+          "alt": "SP37 - Turquoise Matte",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp37-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/51.jpg?v=1762453564",
+          "localPath": "/images/glazes/sps/sp37-2.jpg",
+          "alt": "SP37 - Turquoise Matte",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP41",
+      "name": "White Matte",
+      "displayName": "SP41 - White Matte",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/white-matt",
+      "description": "SP41 - White Matte A matte white glaze that breaks to the color of the clay underneath",
+      "images": [
+        {
+          "id": "sp41-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP41WhiteMatte_7181383c-a823-4e0d-ac93-1421dc798ea3.png?v=1717192127",
+          "localPath": "/images/glazes/sps/sp41.jpg",
+          "alt": "SP41 - White Matte",
+          "type": "product",
+          "isPrimary": true
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP44",
+      "name": "Gold Rust",
+      "displayName": "SP44 - Gold Rust",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp44-gold-rust",
+      "description": "SP44 - Gold Rust FIRING RANGE CONE 4 - 6 A bright yellow gold speckled glaze. SP44 Gold Rust produces dark red-bronze speckles that sit over an opaque surface. This glaze combines well with other glazes, creating some beautiful mottling effects",
+      "images": [
+        {
+          "id": "sp44-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP44_Gold_Rust_Flat_1.jpg?v=1758739699",
+          "localPath": "/images/glazes/sps/sp44.jpg",
+          "alt": "SP44 - Gold Rust",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp44-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/58.jpg?v=1759537582",
+          "localPath": "/images/glazes/sps/sp44-2.jpg",
+          "alt": "SP44 - Gold Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp44-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/67.png?v=1758741046",
+          "localPath": "/images/glazes/sps/sp44-3.jpg",
+          "alt": "SP44 - Gold Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp44-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/68.png?v=1758741047",
+          "localPath": "/images/glazes/sps/sp44-4.jpg",
+          "alt": "SP44 - Gold Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp44-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/69.png?v=1758741047",
+          "localPath": "/images/glazes/sps/sp44-5.jpg",
+          "alt": "SP44 - Gold Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp44-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/70.png?v=1758741052",
+          "localPath": "/images/glazes/sps/sp44-6.jpg",
+          "alt": "SP44 - Gold Rust",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP50",
+      "name": "Moss Brown",
+      "displayName": "SP50 - Moss Brown",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/moss-brown",
+      "description": "SP50 - Moss Brown For CONE 4 - 6 A matte earthy brown with a deep brown, rust, and yellow mottled surface",
+      "images": [
+        {
+          "id": "sp50-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP50MossBrown.jpg?v=1762652084",
+          "localPath": "/images/glazes/sps/sp50.jpg",
+          "alt": "SP50 - Moss Brown",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp50-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/SP50-1.jpg?v=1762652084",
+          "localPath": "/images/glazes/sps/sp50-2.jpg",
+          "alt": "SP50 - Moss Brown",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP51",
+      "name": "Moss Black",
+      "displayName": "SP51 - Moss Black",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/moss-black",
+      "description": "SP51 - Moss Black FIRING RANGE CONE 4 - 6 A moody, textural black with mossy undertones that shift with thickness and firing. A versatile glaze for bold forms and dramatic contrast",
+      "images": [
+        {
+          "id": "sp51-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP51MossBlack.jpg?v=1762453826",
+          "localPath": "/images/glazes/sps/sp51.jpg",
+          "alt": "SP51 - Moss Black",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp51-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/48.jpg?v=1762453826",
+          "localPath": "/images/glazes/sps/sp51-2.jpg",
+          "alt": "SP51 - Moss Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp51-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP51MossBlackSatinonSeaMix5Grog_1.jpg?v=1762453826",
+          "localPath": "/images/glazes/sps/sp51-3.jpg",
+          "alt": "SP51 - Moss Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp51-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/moss_black_blue_satin.jpg?v=1764879816",
+          "localPath": "/images/glazes/sps/sp51-4.jpg",
+          "alt": "SP51 - Moss Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp51-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/claytiles_11.png?v=1762453826",
+          "localPath": "/images/glazes/sps/sp51-5.jpg",
+          "alt": "SP51 - Moss Black",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP52",
+      "name": "Shadow Green",
+      "displayName": "SP52 - Shadow Green",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/shadow-green",
+      "description": "SP52 - Shadow Green FIRING RANGE CONE 4 - 6 SPS glazes are made in small batches and with extreme attention to quality control. Lead free and safe for dinnerware",
+      "images": [
+        {
+          "id": "sp52-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP52ShadowGreen.jpg?v=1762453346",
+          "localPath": "/images/glazes/sps/sp52.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp52-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP52ShadowGreenShiny.jpg?v=1762453346",
+          "localPath": "/images/glazes/sps/sp52-2.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/sp52shadowgreen.jpg?v=1762453346",
+          "localPath": "/images/glazes/sps/sp52-3.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/foolsgoldfinal2.jpg?v=1762453346",
+          "localPath": "/images/glazes/sps/sp52-4.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/freeze.jpg?v=1762453346",
+          "localPath": "/images/glazes/sps/sp52-5.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/preview_images/49b0bbad0a2f41419d37b7e3e26dbf02.thumbnail.0000000000.jpg?v=1763068495",
+          "localPath": "/images/glazes/sps/sp52-6.jpg",
+          "alt": "Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/vashon_2.jpg?v=1763069075",
+          "localPath": "/images/glazes/sps/sp52-7.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-8",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Eclipsefinalwglaze.jpg?v=1763069075",
+          "localPath": "/images/glazes/sps/sp52-8.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-9",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_cup_final_fire_sp52_Shadow_Green_1.jpg?v=1763069075",
+          "localPath": "/images/glazes/sps/sp52-9.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-10",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SeaMix6ShadowGreenAmberBrownFrank_5511fc82-8d36-4215-aeda-e42de8c358cc.png?v=1763069075",
+          "localPath": "/images/glazes/sps/sp52-10.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-11",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/FoolsGoldClay_ShadowGreen_clayfulmindpotterybykim.jpg?v=1763069075",
+          "localPath": "/images/glazes/sps/sp52-11.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-12",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Klamath_Yellow_SP52_Shadow_Green_pottery_by_suzanne_glaze.jpg?v=1763069075",
+          "localPath": "/images/glazes/sps/sp52-12.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-13",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/shadow_green_dadventureland.jpg?v=1763069075",
+          "localPath": "/images/glazes/sps/sp52-13.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-14",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Shadow_Green_over_Opaque_White_pottery.by.kay.jpg?v=1768595502",
+          "localPath": "/images/glazes/sps/sp52-14.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp52-15",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP52ShadowGreenGS.png?v=1768595571",
+          "localPath": "/images/glazes/sps/sp52-15.jpg",
+          "alt": "SP52 - Shadow Green",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP55",
+      "name": "Oatmeal Rust",
+      "displayName": "SP55 - Oatmeal Rust",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/oatmeal-rust",
+      "description": "SP55 - Oatmeal Rust FIRING RANGE CONE 4 - 6 A gorgeous tan-speckled glaze. Provides an even opaque surface on its own, and layered? Oh, it blends like a dream",
+      "images": [
+        {
+          "id": "sp55-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP55.jpg?v=1762652111",
+          "localPath": "/images/glazes/sps/sp55.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp55-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/OatmealRustonAwaji.jpg?v=1762652111",
+          "localPath": "/images/glazes/sps/sp55-2.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/64.jpg?v=1762652111",
+          "localPath": "/images/glazes/sps/sp55-3.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/91_982aa7ce-95d5-48b9-bfca-938adc1420a9.png?v=1762652111",
+          "localPath": "/images/glazes/sps/sp55-4.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/claytiles_10.png?v=1762652111",
+          "localPath": "/images/glazes/sps/sp55-5.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/oatmeal_rust_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp55-6.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP55OatmealRust_SP34BlueSatinonKlamathWhite.jpg?v=1762652111",
+          "localPath": "/images/glazes/sps/sp55-7.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-8",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Copy_of_fools_gold_oatmeal_rust_1.jpg?v=1762652111",
+          "localPath": "/images/glazes/sps/sp55-8.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-9",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Klamath_Red_with_SP55_Oatmeal_SP18_Turquoise_Green_exterior_Mayco_Norse_Blue_interior.jpg?v=1765402221",
+          "localPath": "/images/glazes/sps/sp55-9.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp55-10",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Fool_s_Gold_clay_w__SPS_SP55_Oatmeal_Rust_and_Amaco_Seaweed_glaze_Work_and_photo_by_dot.and.louie.jpg?v=1768241909",
+          "localPath": "/images/glazes/sps/sp55-10.jpg",
+          "alt": "SP55 - Oatmeal Rust",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP59",
+      "name": "Metallic Brown",
+      "displayName": "SP59 - Metallic Brown",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/metallic-brown",
+      "description": "SP59 - Metallic Brown Fires to CONE 4 - 6 Rich and reflective, this glaze creates a metallic sheen over a rich, warm red-brown base, perfect for statement pieces and experimental surfaces",
+      "images": [
+        {
+          "id": "sp59-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP59MetallicBrown.png?v=1717181912",
+          "localPath": "/images/glazes/sps/sp59.jpg",
+          "alt": "SP59 - Metallic Brown",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp59-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/57.jpg?v=1758738118",
+          "localPath": "/images/glazes/sps/sp59-2.jpg",
+          "alt": "SP59 - Metallic Brown",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP60",
+      "name": "Gold Satin Metallic",
+      "displayName": "SP60 - Gold Satin Metallic",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/gold-satin-metallic",
+      "description": "FIRING RANGE CONE 4 - 6 ~ 10% OFF THROUGH THE END OF THE YEAR! ~ Celebrate our Golden Anniversary (50 years!) with 10% off our favorite glitzy-gold metallic glaze. A rich, burnished dark gold, Gold Satin Metallic is great for high-impact glaze effects (and fun to mix with other glazes, too). The discount will be automatically applied in your cart. ______ .",
+      "images": [
+        {
+          "id": "sp60-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP60GoldSatinMetallic.png?v=1717181936",
+          "localPath": "/images/glazes/sps/sp60.jpg",
+          "alt": "SP60 - Gold Satin Metallic",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp60-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP60GoldSatinMetallic_6_1.jpg?v=1758845737",
+          "localPath": "/images/glazes/sps/sp60-2.jpg",
+          "alt": "SP60 - Gold Satin Metallic",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp60-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP60GoldSatinMetallic_8_1.jpg?v=1758845737",
+          "localPath": "/images/glazes/sps/sp60-3.jpg",
+          "alt": "SP60 - Gold Satin Metallic",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp60-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/GoldSatinMetallic_1.jpg?v=1758845737",
+          "localPath": "/images/glazes/sps/sp60-4.jpg",
+          "alt": "SP-60 Gold Satin Metallic glaze over SPS Fool's Gold pottery clay. Work by Frank Jacques.",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP202",
+      "name": "Sky Blue",
+      "displayName": "SP202 - Sky Blue",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp202-sky-blue",
+      "description": "SP202 - Sky Blue A glossy pale blue glaze with a light crackle",
+      "images": [
+        {
+          "id": "sp202-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP202SkyBlue.jpg?v=1762453926",
+          "localPath": "/images/glazes/sps/sp202.jpg",
+          "alt": "SP202 - Sky Blue",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp202-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP202SkyBlueonGraySpeck.jpg?v=1762453926",
+          "localPath": "/images/glazes/sps/sp202-2.jpg",
+          "alt": "SP202 - Sky Blue",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp202-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/79_4cc82330-0b45-4d8e-8863-6dc2464f972c.png?v=1762453926",
+          "localPath": "/images/glazes/sps/sp202-3.jpg",
+          "alt": "SP202 - Sky Blue",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp202-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/sky_blue_ochre_glaze_seamix_6.png?v=1765051096",
+          "localPath": "/images/glazes/sps/sp202-4.jpg",
+          "alt": "SP202 - Sky Blue",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP204",
+      "name": "Light Lavender",
+      "displayName": "SP204 - Light Lavender",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/light-lavender",
+      "description": "SP204 - Light Lavender For CONE 4 - 6 A glossy light purple glaze",
+      "images": [
+        {
+          "id": "sp204-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP204Lavender.jpg?v=1764879750",
+          "localPath": "/images/glazes/sps/sp204.jpg",
+          "alt": "SP204 - Light Lavender",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp204-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP204LightLavenderGS.png?v=1768595405",
+          "localPath": "/images/glazes/sps/sp204-2.jpg",
+          "alt": "SP204 - Light Lavender",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp204-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/149.png?v=1768595405",
+          "localPath": "/images/glazes/sps/sp204-3.jpg",
+          "alt": "SP204 - Light Lavender",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP206",
+      "name": "Celedon",
+      "displayName": "SP206 - Celedon",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/speckled-sunkissed",
+      "description": "SP206 - Celedon For CONE 4 - 6 A glossy pale green semitransparent glaze",
+      "images": [
+        {
+          "id": "sp206-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP206Celadon_4e8bebe1-0a06-4331-86bd-78c66172e7e7.jpg?v=1764879989",
+          "localPath": "/images/glazes/sps/sp206.jpg",
+          "alt": "SP206 - Celedon",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp206-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP206CeladonGS.png?v=1768595608",
+          "localPath": "/images/glazes/sps/sp206-2.jpg",
+          "alt": "SP206 - Celedon",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP209",
+      "name": "Yellow",
+      "displayName": "SP209 - Yellow",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp209-yellow",
+      "description": "SP209 - Yellow A glossy, opaque bright yellow glaze",
+      "images": [
+        {
+          "id": "sp209-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP209Yellow_1.jpg?v=1762453730",
+          "localPath": "/images/glazes/sps/sp209.jpg",
+          "alt": "SP209 - Yellow",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp209-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP209Yellow_6_1.jpg?v=1762453730",
+          "localPath": "/images/glazes/sps/sp209-2.jpg",
+          "alt": "SP209 - Yellow",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp209-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/83_11b7e810-d7fa-48b4-8741-8d8fc9f9113b.png?v=1762453730",
+          "localPath": "/images/glazes/sps/sp209-3.jpg",
+          "alt": "SP209 - Yellow",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP210",
+      "name": "Orange",
+      "displayName": "SP210 - Orange",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp210-orange",
+      "description": "SP210 - Orange For CONE 4 - 6 A semi-transparent glossy highlighter orange. Sunglasses, anyone? .",
+      "images": [
+        {
+          "id": "sp210-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP210OrangeTestTile_1_1.jpg?v=1758845435",
+          "localPath": "/images/glazes/sps/sp210.jpg",
+          "alt": "SP210 - Orange",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp210-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP210Cone2_1_1.jpg?v=1758845440",
+          "localPath": "/images/glazes/sps/sp210-2.jpg",
+          "alt": "SP210 - Orange",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp210-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/85.png?v=1758845440",
+          "localPath": "/images/glazes/sps/sp210-3.jpg",
+          "alt": "SP210 - Orange",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp210-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/47.jpg?v=1758845435",
+          "localPath": "/images/glazes/sps/sp210-4.jpg",
+          "alt": "SP210 - Orange",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp210-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP210_Orange_SP212_Tomato_Red_Mayco_Flux_Klamath_Buff.jpg?v=1768595662",
+          "localPath": "/images/glazes/sps/sp210-5.jpg",
+          "alt": "SP210 - Orange",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp210-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/137_a51ae60f-5bc7-47fe-af15-d477ca4c59c4.png?v=1759537750",
+          "localPath": "/images/glazes/sps/sp210-6.jpg",
+          "alt": "SP210 - Orange",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp210-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/claytiles_11_01c11c2a-a75f-4216-866c-a6ba061fd1ee.png?v=1759537850",
+          "localPath": "/images/glazes/sps/sp210-7.jpg",
+          "alt": "SP210 - Orange",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP211",
+      "name": "Salmon",
+      "displayName": "SP211 - Salmon",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp211-salmon",
+      "description": "SP211 - Salmon For CONE 4 - 6 A glossy deep burnt orange glaze with a touch of pink",
+      "images": [
+        {
+          "id": "sp211-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP211Salmon.jpg?v=1762453977",
+          "localPath": "/images/glazes/sps/sp211.jpg",
+          "alt": "SP211 - Salmon",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp211-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/95_16f10162-187b-4b4b-851c-46f5be2dd00d.png?v=1762453977",
+          "localPath": "/images/glazes/sps/sp211-2.jpg",
+          "alt": "SP211 - Salmon",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP212",
+      "name": "Tomato Red",
+      "displayName": "SP212 - Tomato Red",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp212-tomato-red",
+      "description": "SP212 - Tomato Red FIRING RANGE CONE 4 - 6 .",
+      "images": [
+        {
+          "id": "sp212-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP212TomatoRed.jpg?v=1762454003",
+          "localPath": "/images/glazes/sps/sp212.jpg",
+          "alt": "SP212 - Tomato Red",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp212-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP212Cone1_1_1.jpg?v=1762454003",
+          "localPath": "/images/glazes/sps/sp212-2.jpg",
+          "alt": "SP212 - Tomato Red",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp212-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP212TomatoRedGS.png?v=1768595662",
+          "localPath": "/images/glazes/sps/sp212-3.jpg",
+          "alt": "SP212 - Tomato Red",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp212-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP212TomatoRedonSeaMixSpeckle.jpg?v=1768595662",
+          "localPath": "/images/glazes/sps/sp212-4.jpg",
+          "alt": "SP212 - Tomato Red",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp212-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP210_Orange_SP212_Tomato_Red_Mayco_Flux_Klamath_Buff.jpg?v=1768595662",
+          "localPath": "/images/glazes/sps/sp212-5.jpg",
+          "alt": "SP212 - Tomato Red",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp212-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/preview_images/045b40d499fa4293a441ae99443c9315.thumbnail.0000000000.jpg?v=1762906622",
+          "localPath": "/images/glazes/sps/sp212-6.jpg",
+          "alt": "Tomato Red",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP215",
+      "name": "Black",
+      "displayName": "SP215 - Black",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp215-black",
+      "description": "SP215 - Black FIRING RANGE CONE 4 - 6 Solid Black Glaze. Great for lining interiors or combinations with other glazes. Full Safety Data Sheet is available upon request. Glaze in wet form poses no or low health risk and no inhalation risk. Once glaze has dried, there may be dust generated by cleaning and working processes. In the event that dust is generated, use local exhaust ventilation or other engineering controls as required to maintain exposures below applicable occupational exposure limits",
+      "images": [
+        {
+          "id": "sp215-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP215Black.jpg?v=1762651867",
+          "localPath": "/images/glazes/sps/sp215.jpg",
+          "alt": "SP215 - Black",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp215-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/136.png?v=1762651867",
+          "localPath": "/images/glazes/sps/sp215-2.jpg",
+          "alt": "SP215 - Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp215-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/100_1d3da42a-dab7-48e4-9730-e71db3101361.png?v=1762651867",
+          "localPath": "/images/glazes/sps/sp215-3.jpg",
+          "alt": "SP215 - Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp215-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/67_f46eebcb-b055-42b0-acb1-7479fb461a98.png?v=1762651867",
+          "localPath": "/images/glazes/sps/sp215-4.jpg",
+          "alt": "SP215 - Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp215-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/69_9d7b9c1f-0ee5-4fb7-88e9-81f87fbb1019.png?v=1762651867",
+          "localPath": "/images/glazes/sps/sp215-5.jpg",
+          "alt": "SP215 - Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp215-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/137_de8c9347-d3e5-468d-afbd-fedcbe9039b6.png?v=1762651867",
+          "localPath": "/images/glazes/sps/sp215-6.jpg",
+          "alt": "SP215 - Black",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp215-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/claytiles_11_8066d381-7954-451c-bbf7-6dfefcc7e496.png?v=1762651867",
+          "localPath": "/images/glazes/sps/sp215-7.jpg",
+          "alt": "SP215 - Black",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP216",
+      "name": "Purple",
+      "displayName": "SP216 - Purple",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp216-purple",
+      "description": "SP216 - Purple For CONE 4 - 6 Opaque purple that deepens to a plum where thick. Slight breakage over texture. Fades beautifully over darker clay bodies, lightening to a dustier periwinkle color. Still allow speckles from clay body to show through",
+      "images": [
+        {
+          "id": "sp216-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP216Purple.jpg?v=1762453704",
+          "localPath": "/images/glazes/sps/sp216.jpg",
+          "alt": "SP216 - Purple",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp216-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/products/fool_sgoldpurpleglaze_cichyceramics_7c668c73-836b-460d-830d-571256513748.jpg?v=1762453704",
+          "localPath": "/images/glazes/sps/sp216-2.jpg",
+          "alt": "SP216 - Purple",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp216-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_sp216_Purple.jpg?v=1762453704",
+          "localPath": "/images/glazes/sps/sp216-3.jpg",
+          "alt": "SP216 - Purple",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp216-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/60.jpg?v=1762453704",
+          "localPath": "/images/glazes/sps/sp216-4.jpg",
+          "alt": "SP216 - Purple",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp216-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP216PurpleonGraySpeckle.jpg?v=1762453704",
+          "localPath": "/images/glazes/sps/sp216-5.jpg",
+          "alt": "SP216 - Purple",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp216-6",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/72.jpg?v=1762453704",
+          "localPath": "/images/glazes/sps/sp216-6.jpg",
+          "alt": "SP216 - Purple",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp216-7",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/71.jpg?v=1762453704",
+          "localPath": "/images/glazes/sps/sp216-7.jpg",
+          "alt": "SP216 - Purple",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP217",
+      "name": "White",
+      "displayName": "SP217 - White",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/sp217-white",
+      "description": "SP217 - White FIRING RANGE CONE 4 - 6 Beautifully basic white. Opaque while still allowing speckles and texture shine through. Perfect for mug liners and sanitary ware",
+      "images": [
+        {
+          "id": "sp217-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Screenshot_2025-09-24_123931.jpg?v=1758758079",
+          "localPath": "/images/glazes/sps/sp217.jpg",
+          "alt": "SP217 - White",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp217-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_sp217_white.jpg?v=1761679549",
+          "localPath": "/images/glazes/sps/sp217-2.jpg",
+          "alt": "SP217 - White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp217-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/hellborn_sp217_white_reggina_beneditti.jpg?v=1765400363",
+          "localPath": "/images/glazes/sps/sp217-3.jpg",
+          "alt": "SP217 - White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp217-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Hellborn_Red_Work_and_photo_by_orna_pottery.jpg?v=1765400363",
+          "localPath": "/images/glazes/sps/sp217-4.jpg",
+          "alt": "SP217 - White",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp217-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/66.jpg?v=1758758079",
+          "localPath": "/images/glazes/sps/sp217-5.jpg",
+          "alt": "SP217 - White",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP218",
+      "name": "Burgundy",
+      "displayName": "SP218 - Burgundy",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/burgundy",
+      "description": "SP218 - Burgundy FIRING RANGE CONE 4 - 6 A beautiful merlot colored glaze. Breaks white and pools into a deep plum color. Use 3-5 coats for maximum depth and consistency",
+      "images": [
+        {
+          "id": "sp218-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP218Burgundy.jpg?v=1762453950",
+          "localPath": "/images/glazes/sps/sp218.jpg",
+          "alt": "SP218 - Burgundy",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp218-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP218BurgundyonGraySpec.jpg?v=1762453950",
+          "localPath": "/images/glazes/sps/sp218-2.jpg",
+          "alt": "SP218 - Burgundy",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp218-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP218Cone3_1_1.jpg?v=1762453950",
+          "localPath": "/images/glazes/sps/sp218-3.jpg",
+          "alt": "SP218 - Burgundy",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP222",
+      "name": "Mossy Green",
+      "displayName": "SP222 - Mossy Green",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/mossy-green",
+      "description": "SP222 - Mossy Green Mossy Green is one of our favorite glazes. The glaze equivalent of a mossy rock near a shaded forest pool, it provides a deep mottled surface of brown, green, and a bit of blue. Totally gorgeous. ____ .",
+      "images": [
+        {
+          "id": "sp222-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP222MossyGreen_1.jpg?v=1758838853",
+          "localPath": "/images/glazes/sps/sp222.jpg",
+          "alt": "SP222 - Mossy Green",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp222-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP222MossGreen_2_1.jpg?v=1758838853",
+          "localPath": "/images/glazes/sps/sp222-2.jpg",
+          "alt": "SP222 - Mossy Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp222-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP222StandingTile2.jpg?v=1765051137",
+          "localPath": "/images/glazes/sps/sp222-3.jpg",
+          "alt": "SP222 - Mossy Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp222-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP222StandingTile.jpg?v=1765051137",
+          "localPath": "/images/glazes/sps/sp222-4.jpg",
+          "alt": "SP222 - Mossy Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp222-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/Mossy_Green_Opaque_white_seam_ix_6.jpg?v=1768595502",
+          "localPath": "/images/glazes/sps/sp222-5.jpg",
+          "alt": "SP222 - Mossy Green",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    },
+    {
+      "code": "SP223",
+      "name": "Lichen Green",
+      "displayName": "SP223 - Lichen Green",
+      "series": "Mid-Range",
+      "cone": [
+        "4",
+        "5",
+        "6"
+      ],
+      "url": "https://seattlepotterysupply.com/collections/sps-mid-range-glaze/products/speckled-jack-olantern",
+      "description": "SP223 - Lichen Green For CONE 4 - 6 If you like organic effects, this glaze is for you. A deep army green with a mottled surface of browns, Lichen Green really does have the feel of lichen growing on a rock. Dark and a bit moody, but oh-so-wild. What's not to love? ___ .",
+      "images": [
+        {
+          "id": "sp223-1",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP223LichenGreen_2.jpg?v=1758838806",
+          "localPath": "/images/glazes/sps/sp223.jpg",
+          "alt": "SP223 - Lichen Green",
+          "type": "product",
+          "isPrimary": true
+        },
+        {
+          "id": "sp223-2",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP223LichenGreen_1_1.jpg?v=1765051182",
+          "localPath": "/images/glazes/sps/sp223-2.jpg",
+          "alt": "SP223 - Lichen Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp223-3",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP223StandingTile2.jpg?v=1765051182",
+          "localPath": "/images/glazes/sps/sp223-3.jpg",
+          "alt": "SP223 - Lichen Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp223-4",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/SP223StandingTile.jpg?v=1765051182",
+          "localPath": "/images/glazes/sps/sp223-4.jpg",
+          "alt": "SP223 - Lichen Green",
+          "type": "product",
+          "isPrimary": false
+        },
+        {
+          "id": "sp223-5",
+          "url": "https://seattlepotterysupply.com/cdn/shop/files/62.jpg?v=1765051182",
+          "localPath": "/images/glazes/sps/sp223-5.jpg",
+          "alt": "SP223 - Lichen Green",
+          "type": "product",
+          "isPrimary": false
+        }
+      ],
+      "discontinued": false,
+      "sku": "Trustpilot"
+    }
+  ]
+}

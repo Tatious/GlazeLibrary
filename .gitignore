@@ -1,0 +1,77 @@
+# ============================================================================
+# GlazeServer — root .gitignore
+# ============================================================================
+
+# OS / editor
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+dist-ssr/
+*.local
+*.tsbuildinfo
+
+# ---------------------------------------------------------------------------
+# Secrets / environment — NEVER commit
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+**/firebase-service-account.json
+*.pem
+*.key
+
+# Deployment artifacts
+**/deploy_pkg/
+**/deploy.zip
+
+# Git history backups (never commit a nested git backup dir)
+.git.backup-*
+*.git.backup*
+
+# SQLite databases (runtime state; lives on Azure /home in prod)
+*.db
+*.db-shm
+*.db-wal
+
+# Python
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# ---------------------------------------------------------------------------
+# Bulk media & scraper caches
+# These are served from Azure Blob Storage / CDN in production and are
+# regenerable via the scrapers in utils/scrapers. Excluded to keep the repo
+# small and clonable. See utils/scrapers/README.md to rebuild.
+# ---------------------------------------------------------------------------
+app/glaze-viewer/public/images/
+utils/scrapers/**/images/
+utils/scrapers/**/html_cache/
+utils/scrapers/**/html_cache_valid/
+utils/scrapers/ai-enrichment/cache/
+
+# Runtime user uploads (stored in Azure Blob in prod)
+app/glaze-viewer/public/uploads/
