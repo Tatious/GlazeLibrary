@@ -79,6 +79,13 @@ export interface PickerSurfaceProps {
   ariaLabelledBy?: string;
   /** Optional extra class on the rendered panel. */
   panelClassName?: string;
+  /**
+   * Lock the panel to its maximum height instead of shrinking to fit the
+   * content. Use for pickers whose content is filtered live (e.g. the glaze
+   * combobox) so the panel doesn't jump around as results narrow. Applies to
+   * the anchored popover, the mobile bottom sheet, and the centered dialog.
+   */
+  stableHeight?: boolean;
 }
 
 const DIALOG_WIDTHS: Record<NonNullable<PickerSurfaceProps["dialogSize"]>, string> = {
@@ -107,6 +114,7 @@ export function PickerSurface({
   ariaLabel,
   ariaLabelledBy,
   panelClassName,
+  stableHeight = false,
 }: PickerSurfaceProps) {
   const isMobile = useIsMobile();
   const reduceMotion = useReducedMotion();
@@ -302,6 +310,9 @@ export function PickerSurface({
                     left: position.left,
                     width: position.width,
                     maxHeight: `min(${ANCHORED_MAX_HEIGHT_FACTOR * 100}vh, ${ANCHORED_MAX_HEIGHT_CAP}px)`,
+                    ...(stableHeight && {
+                      height: `min(${ANCHORED_MAX_HEIGHT_FACTOR * 100}vh, ${ANCHORED_MAX_HEIGHT_CAP}px)`,
+                    }),
                     transformOrigin:
                       position.origin === "top" ? "top center" : "bottom center",
                     zIndex: 50,
@@ -363,7 +374,8 @@ export function PickerSurface({
             aria-label={ariaLabelledBy ? undefined : ariaLabel}
             aria-labelledby={ariaLabelledBy}
             className={[
-              `pointer-events-auto w-full ${DIALOG_WIDTHS[dialogSize]} max-h-[85vh] rounded-xl border-2 border-clay-300 dark:border-earth-600 bg-white dark:bg-earth-800 shadow-2xl flex flex-col overflow-hidden motion-safe:animate-dialog-in`,
+              `pointer-events-auto w-full ${DIALOG_WIDTHS[dialogSize]} rounded-xl border-2 border-clay-300 dark:border-earth-600 bg-white dark:bg-earth-800 shadow-2xl flex flex-col overflow-hidden motion-safe:animate-dialog-in`,
+              stableHeight ? "h-[85vh]" : "max-h-[85vh]",
               panelClassName ?? "",
             ].join(" ")}
           >
@@ -391,7 +403,14 @@ export function PickerSurface({
             paddingRight: "env(safe-area-inset-right)",
           }}
           className={[
-            "absolute left-0 right-0 bottom-0 rounded-t-xl bg-white dark:bg-earth-800 shadow-2xl max-h-[85vh] flex flex-col overflow-hidden motion-safe:animate-sheet-in",
+            "absolute left-0 right-0 bottom-0 rounded-t-xl bg-white dark:bg-earth-800 shadow-2xl flex flex-col overflow-hidden motion-safe:animate-sheet-in",
+            // `dvh` (dynamic viewport height), NOT `vh`: on iOS Safari `vh` is
+            // relative to the *large* viewport (browser chrome hidden), so a
+            // bottom-anchored `85vh` sheet is taller than the visible area and
+            // its top (the search header) slides up behind Safari's top toolbar
+            // when tabs are pinned to the top. `dvh` tracks the visible area, so
+            // the sheet always sits below the toolbar.
+            stableHeight ? "h-[85dvh]" : "max-h-[85dvh]",
             panelClassName ?? "",
           ].join(" ")}
         >

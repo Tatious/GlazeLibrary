@@ -153,7 +153,7 @@ export function TagsDialog({
               bg-white dark:bg-earth-800 shadow-2xl overflow-hidden
               ${
                 isMobile
-                  ? "absolute left-0 right-0 bottom-0 rounded-t-xl max-h-[85vh] landscape:max-h-[95vh]"
+                  ? "absolute left-0 right-0 bottom-0 rounded-t-xl max-h-[85dvh] landscape:max-h-[95dvh]"
                   : "fixed inset-0 m-auto w-full max-w-lg h-fit max-h-[80vh] rounded-xl"
               }
             `}
@@ -164,7 +164,7 @@ export function TagsDialog({
             }}
           >
             <div
-              className={`flex flex-col ${isMobile ? "h-full max-h-[85vh] landscape:max-h-[95vh]" : "max-h-[80vh]"}`}
+              className={`flex flex-col ${isMobile ? "h-full max-h-[85dvh] landscape:max-h-[95dvh]" : "max-h-[80vh]"}`}
             >
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-clay-200 dark:border-earth-600">

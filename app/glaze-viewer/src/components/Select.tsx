@@ -114,7 +114,7 @@ export function Select({
         label={label}
         ariaLabel={ariaLabel}
         triggerClassName={className}
-        // `!max-h-fit` overrides the bottom sheet's default `max-h-[85vh]`
+        // `!max-h-fit` overrides the bottom sheet's default `max-h-[85dvh]`
         // so a short option list (typically 5 rows) gets a compact sheet
         // sized to its content rather than a near-full-screen takeover.
         // Tailwind's `!` prefix forces the rule's specificity to win even

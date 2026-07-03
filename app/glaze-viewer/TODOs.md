@@ -1,3 +1,7 @@
+- Make "select" on glaze/combo page floating so I can trigger from anywhere
+- I need "link copied" UX for the admin page as visual confirmation 
+
+
 - Use the swipe UX for filtering out options from a piece
 
 

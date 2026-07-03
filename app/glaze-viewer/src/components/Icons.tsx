@@ -495,3 +495,17 @@ export function Sparkles(props: IconProps) {
     </IconBase>
   );
 }
+
+// ─── Reorder ──────────────────────────────────────────────────────────────
+
+/**
+ * Two vertical arrows pointing opposite directions — the "swap" / reorder
+ * affordance (e.g. flip a glaze plan's base and top layers).
+ */
+export function Swap(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="M7 4v16m0 0l-3-3m3 3l3-3M17 20V4m0 0l-3 3m3-3l3 3" />
+    </IconBase>
+  );
+}

@@ -681,6 +681,7 @@ export function Combobox<T extends { id: string }>({
           ariaLabelledBy={labelId}
           ariaLabel={!label ? ariaLabel : undefined}
           panelClassName={panelClassName}
+          stableHeight={searchable}
         >
           {renderPanelBody()}
         </PickerSurface>
