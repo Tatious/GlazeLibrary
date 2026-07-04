@@ -51,6 +51,25 @@ the hosts in `ALLOWED_ORIGINS` above.
 
 ## Deploy
 
+### One command (recommended)
+
+[`deploy.sh`](./deploy.sh) automates every step below — build, package (no
+`node_modules`, no secrets), strip build scripts, zip, and push via
+stop → deploy → start, then polls `/api/health` until the site is live.
+
+```bash
+cd app/glaze-viewer
+./deploy.sh                 # build, package, deploy (prompts to confirm)
+./deploy.sh -y              # skip the confirmation prompt
+./deploy.sh --package-only  # build deploy.zip only; don't push to Azure
+./deploy.sh --skip-build    # reuse the existing dist/
+```
+
+Config is overridable via env vars (`RESOURCE_GROUP`, `APP_NAME`, `APP_HOST`,
+`SUBSCRIPTION`); `SUBSCRIPTION` defaults to the Azure CLI's selected account.
+
+The manual steps below are what the script runs, kept for reference / debugging.
+
 ### 1. Build the frontend
 
 ```bash
@@ -135,6 +154,7 @@ az rest --method get --url "https://management.azure.com/subscriptions/$sub/reso
 ```bash
 URL=https://glaze-viewer-c4e9ahdnhnffajed.canadacentral-01.azurewebsites.net
 curl -I "$URL"                  # expect 200 with X-Powered-By: Express
+curl "$URL/api/health"          # expect {"ok":true,...}
 curl "$URL/api/config"          # expect JSON
 az webapp log tail -g glaze-viewer-rg -n glaze-viewer
 ```

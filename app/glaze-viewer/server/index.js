@@ -82,6 +82,12 @@ if (isProduction) {
   console.log(`Serving public files from: ${publicPath}`);
 }
 
+// Liveness probe (no auth). deploy.sh polls this after a push to confirm the
+// Node server — not just the static SPA — is actually up.
+app.get("/api/health", (_req, res) => {
+  res.json({ ok: true, mode: isProduction ? "production" : "development" });
+});
+
 // =============================================================================
 // Routers
 // =============================================================================
