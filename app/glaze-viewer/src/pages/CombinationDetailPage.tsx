@@ -379,6 +379,7 @@ export function CombinationDetailPage() {
                           <img
                             src={prefixCdnUrl(currentEntry.photos[currentPhotoIndex].url)}
                             alt={`${displayName} - Entry ${currentEntryIndex + 1}, Photo ${currentPhotoIndex + 1}`}
+                            decoding="async"
                             className="w-full h-full object-cover"
                           />
 
@@ -438,6 +439,8 @@ export function CombinationDetailPage() {
                             <img
                               src={prefixCdnUrl(photo.url)}
                               alt={`Thumbnail ${idx + 1}`}
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-cover"
                             />
                           </button>

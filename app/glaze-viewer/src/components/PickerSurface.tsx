@@ -121,9 +121,33 @@ export function PickerSurface({
   const panelRef = useRef<HTMLDivElement>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
 
-  // `anchored` mode collapses to `dialog` (bottom sheet) on mobile —
-  // popovers don't fit and would compete with the keyboard.
-  const useAnchored = mode === "anchored" && !isMobile;
+  // Coarse-pointer (touch) devices — includes iPads, which are wide/tall
+  // enough to slip past the `useIsMobile` size check. The anchored popover is
+  // `position: fixed` at a computed offset; on iOS Safari the soft keyboard
+  // pans the *layout* viewport (fixed elements ride along), so an
+  // auto-focused picker can drift partway off the top of the screen. The
+  // centered-dialog / bottom-sheet path is the app's proven, drift-free
+  // treatment (full-screen overlay + body lock), so touch devices use it too.
+  const [isCoarsePointer, setIsCoarsePointer] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches,
+  );
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function")
+      return;
+    const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+    const update = () => setIsCoarsePointer(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  // `anchored` mode collapses to `dialog` (centered dialog / bottom sheet) on
+  // mobile and on any touch device — popovers don't fit, compete with the
+  // keyboard, and drift on iOS.
+  const useAnchored = mode === "anchored" && !isMobile && !isCoarsePointer;
   const isBottomSheet = !useAnchored && isMobile;
   const isCenteredDialog = !useAnchored && !isMobile;
 

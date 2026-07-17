@@ -91,10 +91,12 @@ export async function fetchGlazes(): Promise<Glaze[]> {
  * Fetch all combinations (scraped + user-uploaded)
  */
 export async function fetchCombinations(): Promise<GlazeCombination[]> {
-  // Fetch scraped combinations (cache bust to ensure fresh data)
-  const response = await fetch(
-    `${DATA_BASE_URL}/combinations.json?v=${Date.now()}`,
-  );
+  // Let the browser/CDN cache this (multi-MB) file. Freshness is handled by
+  // TanStack Query's staleTime + explicit invalidation after an upload — a
+  // per-request `?v=Date.now()` buster was forcing a full re-download on every
+  // call (and the detail page calls this several times), which was the main
+  // cause of slow combination pages.
+  const response = await fetch(`${DATA_BASE_URL}/combinations.json`);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch combinations: ${response.status}`);
@@ -229,37 +231,6 @@ function createUserCombination(
     entries: [transformUserEntry(entry)],
     createdAt: entry.createdAt,
   };
-}
-
-/**
- * Fetch a single combination by ID
- */
-export async function fetchCombinationById(
-  id: string,
-): Promise<GlazeCombination | null> {
-  // For now, fetch all and filter. Later could be optimized with individual endpoints
-  const combinations = await fetchCombinations();
-  return combinations.find((c) => c.id === id) ?? null;
-}
-
-/**
- * Fetch a single glaze by ID
- */
-export async function fetchGlazeById(id: string): Promise<Glaze | null> {
-  const glazes = await fetchGlazes();
-  return glazes.find((g) => g.id === id) ?? null;
-}
-
-/**
- * Fetch combinations that use a specific glaze (as top or bottom)
- */
-export async function fetchCombinationsForGlaze(
-  glazeId: string,
-): Promise<GlazeCombination[]> {
-  const combinations = await fetchCombinations();
-  return combinations.filter(
-    (c) => c.topGlaze.glazeId === glazeId || c.bottomGlaze.glazeId === glazeId,
-  );
 }
 
 /**

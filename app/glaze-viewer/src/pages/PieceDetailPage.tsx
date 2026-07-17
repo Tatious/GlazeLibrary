@@ -3,8 +3,9 @@
  * Shows a single pottery piece with stage timeline, glaze plan, and inspo.
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef, type RefObject } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { motion, useDragControls, type PanInfo } from "framer-motion";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import { useGlazes, useCombinations } from "../hooks/useGlazeData";
 import { getPrimaryImage, prefixCdnUrl } from "../utils/glazeUtils";
@@ -27,6 +28,7 @@ import {
   Close,
   Folder,
   GlazeSwatch,
+  GripVertical,
   Layers,
   Pencil,
 } from "../components/Icons";
@@ -34,6 +36,7 @@ import { STAGE_LABELS } from "../lib/pieceStages";
 import type {
   PotteryPiece,
   PieceStage,
+  PieceGlaze,
   CollectionItem,
   Collection,
 } from "../types/models";
@@ -42,6 +45,186 @@ const STAGE_ORDER: PieceStage[] = ["greenware", "bisqueware", "fired"];
 
 function stageIndex(stage: PieceStage) {
   return STAGE_ORDER.indexOf(stage);
+}
+
+// ============================================================================
+// Glaze Inspo → Glaze Plan drag-and-drop
+// ============================================================================
+
+/** Which drop target the pointer is currently over during an inspo drag. */
+type DropTarget = "plan" | "bar" | null;
+
+function pointInEl(el: HTMLElement | null, x: number, y: number): boolean {
+  if (!el) return false;
+  const r = el.getBoundingClientRect();
+  return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+}
+
+/**
+ * Suppress text selection (and the iOS long-press callout) on the whole page
+ * while a touch drag is in flight. framer-motion applies this to the dragged
+ * element itself — but only when `dragListener !== false`. We opt out of that
+ * (so the tile body still scrolls under touch) and start drags from a handle,
+ * so without this a touch-drag would rubber-band a text selection instead.
+ */
+function suppressBodySelection(on: boolean) {
+  if (typeof document === "undefined") return;
+  const s = document.body.style;
+  if (on) {
+    s.userSelect = "none";
+    s.setProperty("-webkit-user-select", "none");
+  } else {
+    s.userSelect = "";
+    s.removeProperty("-webkit-user-select");
+  }
+}
+
+interface InspoCardProps {
+  item: CollectionItem;
+  label: string;
+  href: string;
+  thumbSrc: string | null;
+  isGlaze: boolean;
+  planCardRef: RefObject<HTMLDivElement | null>;
+  dropBarRef: RefObject<HTMLDivElement | null>;
+  onDragActiveChange: (active: boolean) => void;
+  onHoverTargetChange: (target: DropTarget) => void;
+  onDropToPlan: (item: CollectionItem) => void;
+  onRemove: (item: CollectionItem) => void;
+}
+
+/**
+ * A single Glaze Inspo tile. Draggable (via its grip handle) onto the Glaze
+ * Plan card or the floating drop bar. Uses framer-motion pointer dragging so
+ * it works on touch (iOS) where native HTML5 drag-and-drop does not. Only the
+ * grip captures the pointer, so the rest of the tile still taps/scrolls.
+ */
+function InspoCard({
+  item,
+  label,
+  href,
+  thumbSrc,
+  isGlaze,
+  planCardRef,
+  dropBarRef,
+  onDragActiveChange,
+  onHoverTargetChange,
+  onDropToPlan,
+  onRemove,
+}: InspoCardProps) {
+  const dragControls = useDragControls();
+  const [isDragging, setIsDragging] = useState(false);
+
+  const targetAt = (info: PanInfo): DropTarget => {
+    // framer-motion reports `info.point` in *page* coordinates (scroll
+    // included), but `getBoundingClientRect()` is viewport-relative — convert
+    // to viewport space so the hit-test is correct at any scroll position.
+    const x = info.point.x - window.scrollX;
+    const y = info.point.y - window.scrollY;
+    if (pointInEl(planCardRef.current, x, y)) return "plan";
+    if (pointInEl(dropBarRef.current, x, y)) return "bar";
+    return null;
+  };
+
+  return (
+    <motion.div
+      drag
+      dragListener={false}
+      dragControls={dragControls}
+      dragSnapToOrigin
+      dragMomentum={false}
+      dragElastic={0.12}
+      onDragStart={() => {
+        setIsDragging(true);
+        onDragActiveChange(true);
+        suppressBodySelection(true);
+      }}
+      onDrag={(_, info) => onHoverTargetChange(targetAt(info))}
+      onDragEnd={(_, info) => {
+        const target = targetAt(info);
+        setIsDragging(false);
+        onDragActiveChange(false);
+        onHoverTargetChange(null);
+        suppressBodySelection(false);
+        if (target) onDropToPlan(item);
+      }}
+      whileDrag={{ scale: 1.06, zIndex: 50 }}
+      className={`group relative select-none [-webkit-touch-callout:none] rounded-xl border overflow-hidden transition-colors ${
+        isDragging
+          ? "border-terracotta-400 dark:border-terracotta-500 shadow-2xl"
+          : "border-clay-200 dark:border-earth-600 hover:border-terracotta-300 dark:hover:border-terracotta-600"
+      }`}
+    >
+      {/* Drag handle — only this element starts a drag, so the rest of the
+          tile still taps (navigate) and the page still scrolls under touch. */}
+      <button
+        type="button"
+        onPointerDown={(e) => {
+          e.preventDefault();
+          dragControls.start(e);
+        }}
+        style={{
+          touchAction: "none",
+          userSelect: "none",
+          WebkitUserSelect: "none",
+          WebkitTouchCallout: "none",
+        }}
+        className="absolute top-1.5 left-1.5 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-earth-900/85 text-clay-600 dark:text-clay-300 shadow-md backdrop-blur-sm cursor-grab active:cursor-grabbing touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta-500"
+        title="Drag into your glaze plan"
+        aria-label={`Drag ${label} into your glaze plan`}
+      >
+        <GripVertical className="w-5 h-5" />
+      </button>
+
+      <Link to={href} className="block" draggable={false}>
+        <div className="aspect-square bg-clay-100 dark:bg-earth-700">
+          {thumbSrc ? (
+            <img
+              src={thumbSrc}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            />
+          ) : (
+            <div
+              className={`w-full h-full flex items-center justify-center ${
+                isGlaze
+                  ? "bg-sage-50 dark:bg-sage-900/20"
+                  : "bg-butter-50 dark:bg-butter-900/20"
+              }`}
+            >
+              {isGlaze ? (
+                <GlazeSwatch className="w-8 h-8 text-sage-400" strokeWidth={1.5} />
+              ) : (
+                <Layers className="w-8 h-8 text-butter-500" strokeWidth={1.5} />
+              )}
+            </div>
+          )}
+        </div>
+        <div className="p-2">
+          <p className="text-xs font-medium text-clay-800 dark:text-clay-200 group-hover:text-terracotta-600 dark:group-hover:text-terracotta-400">
+            {label}
+          </p>
+        </div>
+      </Link>
+
+      {/* Remove button */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onRemove(item);
+        }}
+        className="absolute top-1.5 right-1.5 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-earth-900/85 text-clay-700 dark:text-clay-200 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white shadow-md backdrop-blur-sm transition-colors touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+        title="Remove inspiration"
+        aria-label="Remove inspiration"
+      >
+        <Close strokeWidth={2.5} />
+      </button>
+    </motion.div>
+  );
 }
 
 // ============================================================================
@@ -65,6 +248,14 @@ export function PieceDetailPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Drag-and-drop: dragging a Glaze Inspo tile onto the Glaze Plan (or the
+  // floating drop bar) adds it as a plan row. `planCardRef` is attached to the
+  // plan panel so a dragged tile can hit-test against it.
+  const planCardRef = useRef<HTMLDivElement>(null);
+  const dropBarRef = useRef<HTMLDivElement>(null);
+  const [inspoDragActive, setInspoDragActive] = useState(false);
+  const [inspoDropTarget, setInspoDropTarget] = useState<DropTarget>(null);
 
   const loadPiece = useCallback(async () => {
     if (!id) return;
@@ -180,6 +371,45 @@ export function PieceDetailPage() {
       console.error("Failed to remove inspo:", err);
     }
   };
+
+  // Turn a dragged inspo item into a Glaze Plan row and append it. A glaze
+  // becomes a single-glaze row; a combination becomes a layered row (base =
+  // bottom glaze, over = top glaze, mirroring the publish link's params).
+  const handleAddInspoToPlan = useCallback(
+    async (item: CollectionItem) => {
+      if (!piece || !user) return;
+      let entry: PieceGlaze;
+      if (item.type === "glaze") {
+        if (!glazeMap[item.id]) return;
+        entry = { glazeId: item.id, coats: 2 };
+      } else {
+        const combo = comboMap[item.id];
+        if (!combo) return;
+        entry = {
+          glazeId: combo.bottomGlaze.glazeId,
+          coats: 2,
+          overGlazeId: combo.topGlaze.glazeId,
+          overCoats: 2,
+        };
+      }
+      // Skip if an identical row is already planned.
+      const dup = piece.glazes.some(
+        (g) =>
+          g.glazeId === entry.glazeId &&
+          (g.overGlazeId ?? "") === (entry.overGlazeId ?? ""),
+      );
+      if (dup) return;
+      try {
+        const updated = await updatePiece(piece.id, {
+          glazes: [...piece.glazes, entry],
+        });
+        setPiece(updated);
+      } catch (err) {
+        console.error("Failed to add inspo to plan:", err);
+      }
+    },
+    [piece, user, glazeMap, comboMap],
+  );
 
   const handleOpenImportCollection = async () => {
     setShowImportCollection(true);
@@ -478,7 +708,13 @@ export function PieceDetailPage() {
       {/* Glazes section */}
       {isOwner && (
         <div className="mb-6">
-          <GlazesSection piece={piece} onUpdated={setPiece} />
+          <GlazesSection
+            piece={piece}
+            onUpdated={setPiece}
+            cardRef={planCardRef}
+            dragActive={inspoDragActive}
+            dropActive={inspoDropTarget === "plan"}
+          />
         </div>
       )}
 
@@ -488,7 +724,7 @@ export function PieceDetailPage() {
           <div className="flex items-center justify-between mb-4 gap-3">
             <div className="min-w-0">
               <h2 className="text-lg font-semibold text-clay-800 dark:text-clay-200">Glaze Inspo</h2>
-              <p className="text-xs text-clay-400 dark:text-clay-500 mt-0.5">Save glazes &amp; combos to consider for this piece</p>
+              <p className="text-xs text-clay-400 dark:text-clay-500 mt-0.5">Save glazes &amp; combos to consider — drag one onto your plan to use it</p>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <button
@@ -567,61 +803,26 @@ export function PieceDetailPage() {
                       : item.id;
                   const href = isGlaze ? `/glaze/${item.id}` : `/combination/${item.id}`;
                   const thumbSrc = isGlaze && glaze
-                  ? prefixCdnUrl(getPrimaryImage(glaze) ?? "")
-                  : combo?.entries?.[0]?.photos?.[0]?.url
-                    ? prefixCdnUrl(combo.entries[0].photos[0].url)
-                    : null;
-                return (
-                  <div key={`${item.type}:${item.id}`} className="group relative rounded-xl border border-clay-200 dark:border-earth-600 hover:border-terracotta-300 dark:hover:border-terracotta-600 overflow-hidden transition-colors">
-                    <Link to={href} className="block">
-                      <div className="aspect-square bg-clay-100 dark:bg-earth-700">
-                        {thumbSrc ? (
-                          <img
-                            src={thumbSrc}
-                            alt=""
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                          />
-                        ) : (
-                          <div className={`w-full h-full flex items-center justify-center ${
-                            isGlaze ? "bg-sage-50 dark:bg-sage-900/20" : "bg-butter-50 dark:bg-butter-900/20"
-                          }`}>
-                            {isGlaze ? (
-                              <GlazeSwatch
-                                className="w-8 h-8 text-sage-400"
-                                strokeWidth={1.5}
-                              />
-                            ) : (
-                              <Layers
-                                className="w-8 h-8 text-butter-500"
-                                strokeWidth={1.5}
-                              />
-                            )}
-                          </div>
-                        )}
-                      </div>
-                      <div className="p-2">
-                        <p className="text-xs font-medium text-clay-800 dark:text-clay-200 truncate group-hover:text-terracotta-600 dark:group-hover:text-terracotta-400">
-                          {label}
-                        </p>
-                        <span className="text-xs text-clay-400 dark:text-clay-500 capitalize">{item.type}</span>
-                      </div>
-                    </Link>
-                    {/* Remove button */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleRemoveInspo(item);
-                      }}
-                      className="absolute top-1.5 right-1.5 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-earth-900/85 text-clay-700 dark:text-clay-200 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white shadow-md backdrop-blur-sm transition-colors touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
-                      title="Remove inspiration"
-                      aria-label="Remove inspiration"
-                    >
-                      <Close strokeWidth={2.5} />
-                    </button>
-                  </div>
-                );
+                    ? (prefixCdnUrl(getPrimaryImage(glaze) ?? "") ?? null)
+                    : combo?.entries?.[0]?.photos?.[0]?.url
+                      ? (prefixCdnUrl(combo.entries[0].photos[0].url) ?? null)
+                      : null;
+                  return (
+                    <InspoCard
+                      key={`${item.type}:${item.id}`}
+                      item={item}
+                      label={label}
+                      href={href}
+                      thumbSrc={thumbSrc}
+                      isGlaze={isGlaze}
+                      planCardRef={planCardRef}
+                      dropBarRef={dropBarRef}
+                      onDragActiveChange={setInspoDragActive}
+                      onHoverTargetChange={setInspoDropTarget}
+                      onDropToPlan={handleAddInspoToPlan}
+                      onRemove={handleRemoveInspo}
+                    />
+                  );
                 })}
               </div>
             );
@@ -706,6 +907,24 @@ export function PieceDetailPage() {
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Floating drop target — shown only while dragging an inspo tile, so the
+          Glaze Plan is reachable even when scrolled out of view. Fixed to the
+          bottom to stay clear of the top nav. */}
+      {isOwner && inspoDragActive && (
+        <div
+          ref={dropBarRef}
+          className={`fixed inset-x-0 bottom-0 z-40 flex items-center justify-center gap-2 px-4 pt-3 text-sm font-semibold border-t-2 transition-colors ${
+            inspoDropTarget === "bar"
+              ? "bg-terracotta-500 text-white border-terracotta-600"
+              : "bg-white/95 dark:bg-earth-800/95 text-terracotta-700 dark:text-terracotta-300 border-terracotta-300 dark:border-terracotta-700 backdrop-blur-sm"
+          }`}
+          style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
+        >
+          <GripVertical className="w-4 h-4" />
+          Drop here to add to your glaze plan
         </div>
       )}
     </PageLayout>

@@ -8,9 +8,6 @@ import { useMemo, useCallback } from "react";
 import {
   fetchGlazes,
   fetchCombinations,
-  fetchCombinationById,
-  fetchGlazeById,
-  fetchCombinationsForGlaze,
   fetchUserGlazeResults,
   fetchMyGlazesConfig,
   saveMyGlazesConfig,
@@ -44,14 +41,20 @@ export function useGlazes() {
 }
 
 /**
- * Fetch a single glaze by ID
+ * Fetch a single glaze by ID.
+ *
+ * Derives from the shared `useGlazes()` query instead of issuing its own
+ * request: `glazes.json` is already loaded app-wide, so filtering it client
+ * side avoids a redundant (and uncacheable) download per glaze page.
  */
 export function useGlaze(id: string) {
-  return useQuery({
-    queryKey: queryKeys.glaze(id),
-    queryFn: () => fetchGlazeById(id),
-    enabled: !!id,
-  });
+  const query = useGlazes();
+  const data = useMemo(
+    () =>
+      id && query.data ? (query.data.find((g) => g.id === id) ?? null) : undefined,
+    [query.data, id],
+  );
+  return { ...query, data };
 }
 
 /**
@@ -120,25 +123,43 @@ export function useCombinations() {
 }
 
 /**
- * Fetch a single combination by ID
+ * Fetch a single combination by ID.
+ *
+ * Derives from the shared `useCombinations()` query. Previously this issued
+ * its own `fetchCombinationById`, which re-downloaded the entire (multi-MB)
+ * `combinations.json`; on the combination detail page that happened three
+ * times (the combo itself + both related-glaze lookups). Deriving from the
+ * one cached query collapses those into a single shared fetch.
  */
 export function useCombination(id: string) {
-  return useQuery({
-    queryKey: queryKeys.combination(id),
-    queryFn: () => fetchCombinationById(id),
-    enabled: !!id,
-  });
+  const query = useCombinations();
+  const data = useMemo(
+    () =>
+      id && query.data ? (query.data.find((c) => c.id === id) ?? null) : undefined,
+    [query.data, id],
+  );
+  return { ...query, data };
 }
 
 /**
- * Fetch combinations for a specific glaze
+ * Fetch combinations for a specific glaze (as top or bottom).
+ *
+ * Also derives from the shared `useCombinations()` query — see `useCombination`.
  */
 export function useCombinationsForGlaze(glazeId: string) {
-  return useQuery({
-    queryKey: queryKeys.combinationsForGlaze(glazeId),
-    queryFn: () => fetchCombinationsForGlaze(glazeId),
-    enabled: !!glazeId,
-  });
+  const query = useCombinations();
+  const data = useMemo(
+    () =>
+      glazeId && query.data
+        ? query.data.filter(
+            (c) =>
+              c.topGlaze.glazeId === glazeId ||
+              c.bottomGlaze.glazeId === glazeId,
+          )
+        : [],
+    [query.data, glazeId],
+  );
+  return { ...query, data };
 }
 
 /**

@@ -91,6 +91,12 @@ export function TagsDialog({
 
   const handleClear = () => {
     setLocalSelected([]);
+    // Commit the cleared selection immediately. The "Clear all" control lives
+    // in a row that's gated on a non-empty selection, so it disappears the
+    // instant it's pressed — if we only staged the change locally, a user who
+    // then dismissed the dialog (tap-outside / X / Esc) without pressing
+    // "Apply" would be left with the filter pill still showing the old count.
+    onTagsChange([]);
   };
 
   // Filter tags by search (filter out undefined/null values first)

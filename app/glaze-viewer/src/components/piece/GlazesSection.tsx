@@ -13,7 +13,7 @@
  * Extracted from PieceDetailPage in Phase 3 (~190 LOC inline block).
  */
 
-import { useState } from "react";
+import { useState, type Ref } from "react";
 import { Link } from "react-router-dom";
 import { useGlazes } from "../../hooks/useGlazeData";
 import { updatePiece } from "../../api/piecesApi";
@@ -28,12 +28,19 @@ import { ChevronRight, Close, GlazeSwatch, Pencil, Swap, Upload } from "../Icons
 interface GlazesSectionProps {
   piece: PotteryPiece;
   onUpdated: (updated: PotteryPiece) => void;
+  /** Attached to the panel root so the Glaze Inspo grid (a drag source) can
+   *  hit-test whether an item was dropped onto the plan. */
+  cardRef?: Ref<HTMLDivElement>;
+  /** A drag is in progress somewhere — show a subtle "droppable" outline. */
+  dragActive?: boolean;
+  /** The dragged item is currently hovering the plan — show a strong highlight. */
+  dropActive?: boolean;
 }
 
 const inputCls =
   "px-3 py-2 text-sm rounded-lg border-2 border-clay-300 dark:border-earth-600 bg-white dark:bg-earth-700 text-clay-800 dark:text-clay-200 placeholder-clay-400 dark:placeholder-clay-500 focus:outline-none focus:ring-2 focus:ring-sage-500/40 focus:border-sage-400";
 
-export function GlazesSection({ piece, onUpdated }: GlazesSectionProps) {
+export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActive }: GlazesSectionProps) {
   const { data: allGlazes } = useGlazes();
   const [isAdding, setIsAdding] = useState(false);
   const [label, setLabel] = useState("");
@@ -267,7 +274,16 @@ export function GlazesSection({ piece, onUpdated }: GlazesSectionProps) {
   );
 
   return (
-    <div className="bg-white dark:bg-earth-800 rounded-xl p-6 shadow-sm border-2 border-clay-200 dark:border-earth-600">
+    <div
+      ref={cardRef}
+      className={`bg-white dark:bg-earth-800 rounded-xl p-6 shadow-sm border-2 transition-colors ${
+        dropActive
+          ? "border-terracotta-400 dark:border-terracotta-500 ring-2 ring-terracotta-300/70 dark:ring-terracotta-500/40"
+          : dragActive
+            ? "border-dashed border-terracotta-300 dark:border-terracotta-600"
+            : "border-clay-200 dark:border-earth-600"
+      }`}
+    >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-clay-800 dark:text-clay-200">
           Glaze Plan
