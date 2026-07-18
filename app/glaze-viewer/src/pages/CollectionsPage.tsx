@@ -3,15 +3,11 @@
  * List all saved discover collections.
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlazes, useCombinations } from "../hooks/useGlazeData";
-import {
-  getCollections,
-  createCollection,
-} from "../api/collectionsApi";
+import { useCollections, useCreateCollection } from "../hooks/useCollections";
 import { getPrimaryImage, getCombinationImage } from "../utils/glazeUtils";
-import { useAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import { EmptyState } from "../components/EmptyState";
 import { Spinner } from "../components/Spinner";
@@ -26,42 +22,23 @@ export function CollectionsPage() {
   // instead of showing them an empty page. Mirrors PiecesPage.
   useRequireAuth();
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { data: glazes = [] } = useGlazes();
   const { data: combinations = [] } = useCombinations();
-  const [collections, setCollections] = useState<Collection[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // React Query caches the list, so navigating back renders instantly from
+  // cache instead of re-fetching + flashing a spinner every visit.
+  const { data: collections = [], isLoading } = useCollections();
+  const createCollection = useCreateCollection();
   const [showNewModal, setShowNewModal] = useState(false);
   const [newName, setNewName] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
-
-  const loadCollections = useCallback(async () => {
-    setIsLoading(true);
-    const data = await getCollections(user?.uid);
-    setCollections(data);
-    setIsLoading(false);
-  }, [user?.uid]);
-
-  useEffect(() => {
-    loadCollections();
-  }, [loadCollections]);
 
   const handleCreate = async () => {
-    if (!newName.trim() || isCreating) return;
-    setIsCreating(true);
-    try {
-      const created = await createCollection(
-        newName.trim(),
-        [],
-        undefined,
-        user?.uid,
-      );
-      setShowNewModal(false);
-      setNewName("");
-      navigate(`/collections/${created.id}`);
-    } finally {
-      setIsCreating(false);
-    }
+    if (!newName.trim() || createCollection.isPending) return;
+    const created = await createCollection.mutateAsync({
+      name: newName.trim(),
+    });
+    setShowNewModal(false);
+    setNewName("");
+    navigate(`/collections/${created.id}`);
   };
 
   // Get preview images for a collection
@@ -133,10 +110,10 @@ export function CollectionsPage() {
             </button>
             <button
               onClick={handleCreate}
-              disabled={!newName.trim() || isCreating}
+              disabled={!newName.trim() || createCollection.isPending}
               className="px-4 py-2 text-sm font-medium bg-terracotta-500 text-white rounded-lg hover:bg-terracotta-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isCreating ? "Creating..." : "Create"}
+              {createCollection.isPending ? "Creating..." : "Create"}
             </button>
           </>
         }

@@ -35,6 +35,11 @@ import { Check, Heart, Shop } from "../components/Icons";
 import type { Glaze, MyGlazesConfig } from "../types/models";
 import { getPrimaryImage } from "../utils/glazeUtils";
 import { STORAGE_KEYS } from "../config/storageKeys";
+import {
+  imageMorphId,
+  captureImageMorph,
+  useImageMorph,
+} from "../lib/imageMorph";
 
 export function GlazesPage() {
   const { data: glazes = [], isLoading: glazesLoading } = useGlazes();
@@ -305,6 +310,11 @@ const GlazeCard = memo(function GlazeCard({
   onToggleFavorite,
   onToggleOwned,
 }: GlazeCardProps) {
+  // Shared-element morph: this thumbnail flies into (and back from) the
+  // GlazeDetailPage hero across the route change. The ref is attached only in
+  // nav mode below; the effect no-ops until then.
+  const morphRef = useImageMorph(imageMorphId("glaze", glaze.id));
+
   // In selection mode the card is a selection target. We render a
   // dedicated subcomponent so it can subscribe to ONLY its own
   // selection key \u2014 toggling one card never re-renders the others.
@@ -328,9 +338,16 @@ const GlazeCard = memo(function GlazeCard({
   return (
     <div className={`relative ${cardClass}`}>
       {/* Thumbnail */}
-      <Link to={`/glaze/${glaze.id}`} className="block">
+      <Link
+        to={`/glaze/${glaze.id}`}
+        className="block"
+        onClick={() => captureImageMorph(imageMorphId("glaze", glaze.id))}
+      >
         {thumbnail ? (
-          <div className="aspect-square bg-clay-100 dark:bg-earth-700 overflow-hidden">
+          <div
+            ref={morphRef}
+            className="aspect-square bg-clay-100 dark:bg-earth-700 overflow-hidden"
+          >
             <img
               src={thumbnail}
               alt={glaze.displayName}

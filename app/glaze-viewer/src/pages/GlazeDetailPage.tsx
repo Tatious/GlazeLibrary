@@ -14,6 +14,7 @@ import { useAuth } from "../hooks/useAuth";
 import { deleteUpload } from "../api/uploadsApi";
 import { getPrimaryImage, getImageUrl, prefixCdnUrl } from "../utils/glazeUtils";
 import { springs } from "../config/animations";
+import { imageMorphId, useImageMorph } from "../lib/imageMorph";
 import { AddToContainerModal } from "../components/AddToContainerModal";
 import { CombinationCard } from "../components/CombinationCard";
 import { ConfirmAction } from "../components/ConfirmAction";
@@ -39,6 +40,14 @@ export function GlazeDetailPage() {
   const queryClient = useQueryClient();
   const { user, isAdmin } = useAuth();
   const { data: glaze, isLoading, error } = useGlaze(id || "");
+  // Shared-element morph target: the hero photo morphs out of the glaze card
+  // thumbnail that was clicked. `ready` gates the effect until the hero renders
+  // (after the query resolves) so it measures its true landing rect.
+  const heroMorphRef = useImageMorph(
+    imageMorphId("glaze", id ?? ""),
+    !isLoading && !!glaze,
+    true, // detail hero: offer its rect as the reverse-morph source on back
+  );
   const [selectedImage, setSelectedImage] = useState<GlazeImage | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const myGlazes = useMyGlazes();
@@ -253,6 +262,7 @@ export function GlazeDetailPage() {
         <div className="space-y-4">
           {/* Main Image */}
           <div
+            ref={heroMorphRef}
             className="relative aspect-square max-h-[40vh] xs:max-h-none xsl:max-h-[55vh] max-w-[40vh] xs:max-w-none xsl:max-w-[55vh] md:max-w-none mx-auto md:mx-0 xsl:mx-0 w-full bg-white dark:bg-earth-800 rounded-xl overflow-hidden border-2 border-sage-100 dark:border-earth-600 cursor-pointer"
             onClick={() => displayImage && setIsFullscreen(true)}
           >

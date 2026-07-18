@@ -12,7 +12,7 @@
  * Place this component once at the app root, after BrowserRouter.
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 // Minimum time between saves to avoid excessive state updates
@@ -69,8 +69,16 @@ export function ScrollManager() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  // Handle navigation changes
-  useEffect(() => {
+  // Handle navigation changes.
+  //
+  // useLayoutEffect (not useEffect) so the forward scrollTo(0, 0) runs BEFORE
+  // paint and BEFORE the incoming page's own layout effects. The list→detail
+  // photo morph relies on this: ScrollManager is an earlier sibling than the
+  // routed page, so its layout effect fires first, resetting scroll before the
+  // detail hero measures its landing rect. With a passive effect the hero would
+  // measure at the old scroll and the forward morph would fly in from the wrong
+  // place (there is no longer an AnimatePresence "wait" to defer the mount).
+  useLayoutEffect(() => {
     const { isPopNavigation, savedScrollY, currentPath } = stateRef.current;
 
     // Skip if same path (e.g., hash change or query param change)

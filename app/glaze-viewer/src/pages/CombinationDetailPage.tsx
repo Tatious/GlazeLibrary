@@ -25,6 +25,7 @@ import { useAuth } from "../hooks/useAuth";
 import { deleteUpload } from "../api/uploadsApi";
 import { getPrimaryImage, prefixCdnUrl } from "../utils/glazeUtils";
 import { springs } from "../config/animations";
+import { imageMorphId, useImageMorph } from "../lib/imageMorph";
 import { AddToContainerModal } from "../components/AddToContainerModal";
 import { EntryPaginator } from "../components/EntryPaginator";
 import { Spinner } from "../components/Spinner";
@@ -53,6 +54,14 @@ export function CombinationDetailPage() {
   const { user, isAdmin } = useAuth();
 
   const { data: combination, isLoading, error } = useCombination(id ?? "");
+  // Shared-element morph target: the hero photo morphs out of the combination
+  // card cover that was clicked. `ready` gates the effect until the hero renders
+  // (after the query resolves) so it measures its true landing rect.
+  const heroMorphRef = useImageMorph(
+    imageMorphId("combination", id ?? ""),
+    !isLoading && !!combination,
+    true, // detail hero: offer its rect as the reverse-morph source on back
+  );
   const myGlazes = useMyGlazes();
   const toggleOwned = useToggleGlazeOwned();
   const toggleFavorite = useToggleGlazeFavorite();
@@ -370,7 +379,10 @@ export function CombinationDetailPage() {
                 <div className="flex flex-col landscape:flex-row md:flex-row gap-6">
                   {/* Photo column - constrain height on mobile landscape, 1/3 width in landscape */}
                   <div className="md:w-80 landscape:w-1/3 flex-shrink-0">
-                    <div className="relative bg-white dark:bg-earth-800 rounded-xl shadow-sm border-2 border-sage-100 dark:border-earth-600 overflow-hidden">
+                    <div
+                      ref={heroMorphRef}
+                      className="relative bg-white dark:bg-earth-800 rounded-xl shadow-sm border-2 border-sage-100 dark:border-earth-600 overflow-hidden"
+                    >
                       {currentEntry.photos?.[currentPhotoIndex] ? (
                         <div
                           className="aspect-square relative max-h-[60vh] landscape:max-h-[70vh] md:max-h-none cursor-pointer"

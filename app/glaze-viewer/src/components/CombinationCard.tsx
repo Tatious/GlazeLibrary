@@ -15,6 +15,11 @@ import { springs, cardHover } from "../config/animations";
 import { prefixCdnUrl } from "../utils/glazeUtils";
 import { useIsSelected, type SelectionStore } from "../hooks/useBatchSelect";
 import { Badge, Check, Heart } from "./Icons";
+import {
+  imageMorphId,
+  captureImageMorph,
+  useImageMorph,
+} from "../lib/imageMorph";
 
 interface CombinationCardProps {
   combination: GlazeCombination;
@@ -37,6 +42,11 @@ export function CombinationCard({
   // Favorites are per-user \u2014 hide the heart for signed-out visitors so we
   // don't show an affordance that would just bounce them to /login.
   const { user } = useAuth();
+
+  // Shared-element morph: the cover photo flies into (and back from) the
+  // CombinationDetailPage hero across the route change. The ref is attached to
+  // the photo box only in nav mode (not selection mode).
+  const morphRef = useImageMorph(imageMorphId("combination", combination.id));
 
   const ownsTop = myGlazes.glazes[combination.topGlaze.glazeId]?.owned ?? false;
   const ownsBottom =
@@ -64,7 +74,10 @@ export function CombinationCard({
   const cardInner = (
     <>
       {/* Photo */}
-      <div className="aspect-square relative overflow-hidden bg-clay-100 dark:bg-earth-700">
+      <div
+        ref={selectionMode ? undefined : morphRef}
+        className="aspect-square relative overflow-hidden rounded-t-[10px] bg-clay-100 dark:bg-earth-700"
+      >
         {coverPhoto ? (
           <img
             src={prefixCdnUrl(coverPhoto.url) || coverPhoto.url}
@@ -173,10 +186,13 @@ export function CombinationCard({
       whileTap="tap"
       variants={cardHover}
       transition={springs.quick}
-      className="relative h-full"
+      className="relative h-full rounded-xl"
     >
       <Link
         to={`/combination/${combination.id}`}
+        onClick={() =>
+          captureImageMorph(imageMorphId("combination", combination.id))
+        }
         className="group block bg-white dark:bg-earth-800 rounded-xl overflow-hidden border-2 border-sage-100 dark:border-earth-600 hover:border-sage-300 dark:hover:border-sage-700 focus-ring h-full"
       >
         {cardInner}

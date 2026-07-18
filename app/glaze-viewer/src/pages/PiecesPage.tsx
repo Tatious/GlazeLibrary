@@ -3,10 +3,10 @@
  * Lists the user's pottery pieces grouped by stage
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRequireAuth } from "../hooks/useRequireAuth";
-import { createPiece, listPieces } from "../api/piecesApi";
+import { usePieces, useCreatePiece } from "../hooks/usePieces";
 import { PageLayout } from "../components/PageLayout";
 import { EmptyState } from "../components/EmptyState";
 import { Spinner } from "../components/Spinner";
@@ -34,34 +34,18 @@ export function PiecesPage() {
   const { user, isLoading: authLoading } = useRequireAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [pieces, setPieces] = useState<PotteryPiece[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // React Query caches the list, so navigating back renders instantly from
+  // cache instead of re-fetching + flashing a spinner every visit.
+  const { data: pieces = [], isLoading } = usePieces();
+  const createPiece = useCreatePiece();
   const [showNewPieceModal, setShowNewPieceModal] = useState(
     () => (location.state as { openNewPieceModal?: boolean } | null)?.openNewPieceModal === true
   );
   const [newPieceName, setNewPieceName] = useState("");
   const [newPieceClayBody, setNewPieceClayBody] = useState("");
   const [newPieceWeight, setNewPieceWeight] = useState("");
-  const [isCreating, setIsCreating] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
   const [showArchived, setShowArchived] = useState(false);
-
-  const loadPieces = useCallback(async () => {
-    if (!user) return;
-    setIsLoading(true);
-    try {
-      const data = await listPieces(user.uid);
-      setPieces(data);
-    } catch (err) {
-      console.error("Failed to load pieces:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    loadPieces();
-  }, [loadPieces]);
 
   useEffect(() => {
     if ((location.state as { openNewPieceModal?: boolean } | null)?.openNewPieceModal) {
@@ -70,11 +54,10 @@ export function PiecesPage() {
   }, [location.state, location.pathname, navigate]);
 
   const handleCreatePiece = async () => {
-    if (!newPieceName.trim() || isCreating || !user) return;
-    setIsCreating(true);
+    if (!newPieceName.trim() || createPiece.isPending || !user) return;
     setCreateError(null);
     try {
-      const piece = await createPiece({
+      const piece = await createPiece.mutateAsync({
         name: newPieceName.trim(),
         clayBody: newPieceClayBody.trim() || null,
         weight: newPieceWeight.trim() || null,
@@ -86,8 +69,6 @@ export function PiecesPage() {
       navigate(`/pieces/${piece.id}`);
     } catch (err) {
       setCreateError(err instanceof Error ? err.message : "Failed to create piece");
-    } finally {
-      setIsCreating(false);
     }
   };
 
@@ -249,10 +230,10 @@ export function PiecesPage() {
             </button>
             <button
               onClick={handleCreatePiece}
-              disabled={!newPieceName.trim() || isCreating}
+              disabled={!newPieceName.trim() || createPiece.isPending}
               className="px-4 py-2 rounded-lg bg-terracotta-600 hover:bg-terracotta-700 text-white font-medium transition-colors border border-terracotta-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isCreating ? "Creating..." : "Create"}
+              {createPiece.isPending ? "Creating..." : "Create"}
             </button>
           </>
         }

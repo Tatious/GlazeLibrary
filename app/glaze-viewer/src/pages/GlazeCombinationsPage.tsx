@@ -44,57 +44,51 @@ export function GlazeCombinationsPage() {
     );
   }, [myGlazes.glazes]);
 
-  // Filter combinations for this glaze
-  const filteredCombinations = useMemo(() => {
-    if (!glazeId) return [];
+  // Filter combinations for this glaze in three stages, so the empty state can
+  // tell *which* filter emptied the grid (position → owned → search) instead of
+  // a dead-end "no results".
 
-    let filtered = allCombinations.filter((combo) => {
+  // 1. Combos involving this glaze, narrowed by the position facet only.
+  const positionCombos = useMemo(() => {
+    if (!glazeId) return [];
+    return allCombinations.filter((combo) => {
       const isTop = combo.topGlaze.glazeId === glazeId;
       const isBottom = combo.bottomGlaze.glazeId === glazeId;
-
-      // Must involve this glaze
       if (!isTop && !isBottom) return false;
-
-      // Position filter
       if (positionFilter === "top" && !isTop) return false;
       if (positionFilter === "bottom" && !isBottom) return false;
-
-      // Only owned filter - check if user owns the OTHER glaze
-      if (onlyOwned) {
-        const otherGlazeId = isTop
-          ? combo.bottomGlaze.glazeId
-          : combo.topGlaze.glazeId;
-        if (!ownedGlazeIds.has(otherGlazeId)) return false;
-      }
-
       return true;
     });
+  }, [allCombinations, glazeId, positionFilter]);
 
-    // Search filter
-    if (search) {
-      const searchLower = search.toLowerCase();
-      filtered = filtered.filter((combo) => {
-        const otherGlaze =
-          combo.topGlaze.glazeId === glazeId
-            ? combo.bottomGlaze
-            : combo.topGlaze;
-        return (
-          otherGlaze.displayName.toLowerCase().includes(searchLower) ||
-          combo.topGlaze.displayName.toLowerCase().includes(searchLower) ||
-          combo.bottomGlaze.displayName.toLowerCase().includes(searchLower)
-        );
-      });
-    }
+  // 2. Of those, the ones the user can actually make (owns the OTHER glaze).
+  const ownedCombos = useMemo(() => {
+    if (!onlyOwned) return positionCombos;
+    return positionCombos.filter((combo) => {
+      const otherGlazeId =
+        combo.topGlaze.glazeId === glazeId
+          ? combo.bottomGlaze.glazeId
+          : combo.topGlaze.glazeId;
+      return ownedGlazeIds.has(otherGlazeId);
+    });
+  }, [positionCombos, onlyOwned, ownedGlazeIds, glazeId]);
 
-    return filtered;
-  }, [
-    allCombinations,
-    glazeId,
-    positionFilter,
-    onlyOwned,
-    ownedGlazeIds,
-    search,
-  ]);
+  // 3. Text search.
+  const filteredCombinations = useMemo(() => {
+    if (!search) return ownedCombos;
+    const searchLower = search.toLowerCase();
+    return ownedCombos.filter((combo) => {
+      const otherGlaze =
+        combo.topGlaze.glazeId === glazeId
+          ? combo.bottomGlaze
+          : combo.topGlaze;
+      return (
+        otherGlaze.displayName.toLowerCase().includes(searchLower) ||
+        combo.topGlaze.displayName.toLowerCase().includes(searchLower) ||
+        combo.bottomGlaze.displayName.toLowerCase().includes(searchLower)
+      );
+    });
+  }, [ownedCombos, search, glazeId]);
 
   // Stats
   const stats = useMemo(() => {
@@ -249,18 +243,105 @@ export function GlazeCombinationsPage() {
             <span className="font-semibold text-clay-800 dark:text-clay-200">
               {filteredCombinations.length}
             </span>{" "}
-            of {stats.total} combinations
+            of {positionCombos.length} combinations
           </div>
         </div>
       </div>
 
       {/* Grid */}
-      {filteredCombinations.length === 0 ? (
-        <div className="text-center py-12 text-clay-500 dark:text-clay-400">
-          No combinations found matching your criteria.
+      {filteredCombinations.length > 0 ? (
+        <CombinationGrid combinations={filteredCombinations} />
+      ) : positionCombos.length === 0 ? (
+        /* This glaze simply has no combinations for the chosen position. */
+        <div className="text-center py-12 max-w-md mx-auto">
+          <div className="text-5xl mb-4">🎨</div>
+          <h2 className="text-lg font-semibold text-clay-800 dark:text-clay-200 mb-1">
+            No combinations yet
+          </h2>
+          <p className="text-clay-600 dark:text-clay-400">
+            {glaze.displayName} doesn&rsquo;t appear{" "}
+            {positionFilter === "top"
+              ? "as the top glaze in any combination"
+              : positionFilter === "bottom"
+                ? "as the bottom glaze in any combination"
+                : "in any combinations"}{" "}
+            yet.
+          </p>
+        </div>
+      ) : onlyOwned && ownedCombos.length === 0 ? (
+        /* There ARE combinations here — the owned-glaze filter (on by default)
+           hid them all. Explain that and give a one-click way to show them. */
+        <div className="text-center py-12 max-w-md mx-auto">
+          <div className="text-5xl mb-4">🏺</div>
+          <h2 className="text-lg font-semibold text-clay-800 dark:text-clay-200 mb-1">
+            {ownedGlazeIds.size === 0
+              ? "You haven't added any glazes yet"
+              : "None use glazes you own"}
+          </h2>
+          <p className="text-clay-600 dark:text-clay-400 mb-5">
+            {ownedGlazeIds.size === 0 ? (
+              <>
+                This list only shows combinations you can make with glazes you
+                own.
+              </>
+            ) : (
+              <>
+                You don&rsquo;t own a glaze that pairs with {glaze.displayName}{" "}
+                here yet.
+              </>
+            )}{" "}
+            {glaze.displayName} appears in{" "}
+            <span className="font-semibold text-clay-800 dark:text-clay-200">
+              {positionCombos.length}
+            </span>{" "}
+            combination{positionCombos.length === 1 ? "" : "s"} in total.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+            <button
+              onClick={() => updateFilter("owned", "false")}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-terracotta-600 text-white rounded-lg hover:bg-terracotta-700 transition-colors font-medium"
+            >
+              Show all {positionCombos.length} combinations
+            </button>
+            {ownedGlazeIds.size === 0 && (
+              <Link
+                to="/glazes"
+                className="text-terracotta-600 dark:text-terracotta-400 hover:underline font-medium"
+              >
+                Mark glazes as owned →
+              </Link>
+            )}
+          </div>
         </div>
       ) : (
-        <CombinationGrid combinations={filteredCombinations} />
+        /* Owned combos exist, but the search text matched none of them. */
+        <div className="text-center py-12 max-w-md mx-auto">
+          <div className="text-5xl mb-4">🔍</div>
+          <h2 className="text-lg font-semibold text-clay-800 dark:text-clay-200 mb-1">
+            No matches
+          </h2>
+          <p className="text-clay-600 dark:text-clay-400 mb-5">
+            {search ? (
+              <>
+                No combinations match{" "}
+                <span className="font-medium text-clay-700 dark:text-clay-300">
+                  {search}
+                </span>
+                .
+              </>
+            ) : (
+              "No combinations match your current filters."
+            )}
+          </p>
+          {search && (
+            <button
+              onClick={() => setSearch("")}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-terracotta-600 text-white rounded-lg hover:bg-terracotta-700 transition-colors font-medium"
+            >
+              Clear search
+            </button>
+          )}
+        </div>
       )}
     </PageLayout>
   );
