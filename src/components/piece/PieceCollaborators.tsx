@@ -1,27 +1,42 @@
-import { useState } from "react";
+import { useDeferredValue, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UserPlus, X } from "lucide-react";
 import {
   invitePieceCollaborator,
   listPieceCollaborators,
   removePieceCollaborator,
+  searchPiecePeople,
 } from "../../api/piecesApi";
 import { Input } from "../Input";
 import { UserAvatar } from "../UserAvatar";
+import type { UserSummary } from "../../types/models";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function PieceCollaborators({ pieceId }: { pieceId: string }) {
   const queryClient = useQueryClient();
   const queryKey = ["pieces", "collaborators", pieceId] as const;
-  const [email, setEmail] = useState("");
+  const [search, setSearch] = useState("");
+  const [selectedPerson, setSelectedPerson] = useState<UserSummary | null>(null);
+  const [isPickerFocused, setIsPickerFocused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [message, setMessage] = useState<string | null>(null);
+  const deferredSearch = useDeferredValue(search.trim());
   const { data: collaborators = [], isLoading } = useQuery({
     queryKey,
     queryFn: () => listPieceCollaborators(pieceId),
   });
+  const { data: people = [], isFetching: isSearching } = useQuery({
+    queryKey: ["pieces", "people", pieceId, deferredSearch],
+    queryFn: () => searchPiecePeople(pieceId, deferredSearch),
+    enabled: deferredSearch.length >= 2 && !selectedPerson,
+  });
   const invite = useMutation({
-    mutationFn: (inviteEmail: string) => invitePieceCollaborator(pieceId, inviteEmail),
+    mutationFn: (person: { userId: string } | { email: string }) =>
+      invitePieceCollaborator(pieceId, person),
     onSuccess: () => {
-      setEmail("");
+      setSearch("");
+      setSelectedPerson(null);
       setMessage("Invitation sent");
       queryClient.invalidateQueries({ queryKey });
     },
@@ -36,10 +51,26 @@ export function PieceCollaborators({ pieceId }: { pieceId: string }) {
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
-    const trimmed = email.trim();
-    if (!trimmed || invite.isPending) return;
+    const trimmed = search.trim();
+    const target = selectedPerson
+      ? { userId: selectedPerson.userId }
+      : EMAIL_PATTERN.test(trimmed)
+        ? { email: trimmed }
+        : null;
+    if (!target || invite.isPending) return;
     setMessage(null);
-    invite.mutate(trimmed);
+    invite.mutate(target);
+  };
+
+  const canInvite = !!selectedPerson || EMAIL_PATTERN.test(search.trim());
+  const showPicker =
+    isPickerFocused && !selectedPerson && deferredSearch.length >= 2;
+  const activePerson = people[activeIndex];
+
+  const choosePerson = (person: UserSummary) => {
+    setSelectedPerson(person);
+    setSearch(person.displayName);
+    setIsPickerFocused(false);
   };
 
   return (
@@ -52,17 +83,110 @@ export function PieceCollaborators({ pieceId }: { pieceId: string }) {
       </div>
 
       <form onSubmit={submit} className="flex flex-col sm:flex-row gap-2">
-        <Input
-          type="email"
-          autoComplete="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="Collaborator email"
-          aria-label="Collaborator email"
-        />
+        <div className="relative flex-1">
+          <Input
+            type="text"
+            autoComplete="off"
+            value={search}
+            onFocus={() => setIsPickerFocused(true)}
+            onBlur={() => setIsPickerFocused(false)}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              setSelectedPerson(null);
+              setIsPickerFocused(true);
+              setActiveIndex(0);
+              setMessage(null);
+            }}
+            onKeyDown={(event) => {
+              if (!showPicker) return;
+              if (event.key === "ArrowDown") {
+                event.preventDefault();
+                setActiveIndex((index) =>
+                  people.length ? (index + 1) % people.length : 0,
+                );
+              } else if (event.key === "ArrowUp") {
+                event.preventDefault();
+                setActiveIndex((index) =>
+                  people.length ? (index - 1 + people.length) % people.length : 0,
+                );
+              } else if (event.key === "Enter" && activePerson) {
+                event.preventDefault();
+                choosePerson(activePerson);
+              } else if (event.key === "Escape") {
+                event.preventDefault();
+                setIsPickerFocused(false);
+              }
+            }}
+            placeholder="Search people or enter email"
+            aria-label="Search people or enter email"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={showPicker}
+            aria-controls="piece-people-listbox"
+            aria-activedescendant={
+              showPicker && activePerson
+                ? `piece-person-${activePerson.userId}`
+                : undefined
+            }
+          />
+          {showPicker && (
+            <div
+              id="piece-people-listbox"
+              role="listbox"
+              aria-label="People"
+              className="absolute z-30 mt-1 w-full overflow-hidden rounded-lg border-2 border-clay-200 dark:border-earth-600 bg-white dark:bg-earth-800 shadow-lg"
+            >
+              {isSearching ? (
+                <p className="px-3 py-3 text-sm text-clay-500 dark:text-clay-400">
+                  Searching...
+                </p>
+              ) : people.length > 0 ? (
+                people.map((person, index) => (
+                  <button
+                    key={person.userId}
+                    id={`piece-person-${person.userId}`}
+                    type="button"
+                    role="option"
+                    aria-selected={index === activeIndex}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onClick={() => choosePerson(person)}
+                    className={`flex w-full items-center gap-3 px-3 py-2.5 text-left ${
+                      index === activeIndex
+                        ? "bg-clay-50 dark:bg-earth-700"
+                        : "hover:bg-clay-50 dark:hover:bg-earth-700"
+                    }`}
+                  >
+                    <UserAvatar
+                      name={person.displayName}
+                      photoDataUrl={person.photoDataUrl}
+                      className="w-9 h-9 text-xs"
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-medium text-clay-800 dark:text-clay-200">
+                        {person.displayName}
+                      </span>
+                      {person.email && (
+                        <span className="block truncate text-xs text-clay-500 dark:text-clay-400">
+                          {person.email}
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <p className="px-3 py-3 text-sm text-clay-500 dark:text-clay-400">
+                  {EMAIL_PATTERN.test(search.trim())
+                    ? "Press Invite to use this email"
+                    : "No matching people"}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
         <button
           type="submit"
-          disabled={!email.trim() || invite.isPending}
+          disabled={!canInvite || invite.isPending}
           className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-terracotta-600 hover:bg-terracotta-700 text-white text-sm font-medium disabled:opacity-50 sm:shrink-0"
         >
           <UserPlus className="w-4 h-4" />

@@ -35,3 +35,11 @@ export const adminLimiter = rateLimit({
   legacyHeaders: false,
   message: { error: "Too many requests. Try again in a few minutes." },
 });
+
+export const peopleSearchLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Too many searches. Try again in a few minutes." },
+});

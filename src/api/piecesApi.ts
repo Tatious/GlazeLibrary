@@ -12,6 +12,7 @@ import type {
   PieceCollaborator,
   PotteryPiece,
   PieceStage,
+  UserSummary,
 } from "../types/models";
 import { authFetch, authFetchForm, optionalAuthFetch } from "../lib/authFetch";
 
@@ -56,16 +57,31 @@ export async function listPieceCollaborators(id: string): Promise<PieceCollabora
   return data.collaborators;
 }
 
+export async function searchPiecePeople(
+  id: string,
+  query: string,
+): Promise<UserSummary[]> {
+  const data = await authFetch<{ people: UserSummary[] }>(
+    `/api/pieces/${id}/people/search`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    },
+  );
+  return data.people;
+}
+
 export async function invitePieceCollaborator(
   id: string,
-  email: string,
+  person: { userId: string } | { email: string },
 ): Promise<PieceCollaborator> {
   const data = await authFetch<{ collaborator: PieceCollaborator }>(
     `/api/pieces/${id}/invitations`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify(person),
     },
   );
   return data.collaborator;

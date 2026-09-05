@@ -21,6 +21,7 @@ import { Pieces, Collections, ResourceMembers } from "../lib/repositories.js";
 import { adminAuth, adminDb } from "../lib/firebase-admin.js";
 import { verifyUser, optionalVerifyUser } from "../middleware/auth.js";
 import { loadAndAuthorize } from "../middleware/loadAndAuthorize.js";
+import { peopleSearchLimiter } from "../middleware/rate-limit.js";
 
 const router = Router();
 const STAGE_ORDER = ["greenware", "bisqueware", "fired"];
@@ -128,7 +129,82 @@ router.get(
   },
 );
 
-// POST /:id/invitations — invite an existing account by email; owner only.
+// POST /:id/people/search — owner-only people picker. Search terms stay out
+// of URLs and server access logs. Name matches expose only public profile
+// fields; a full email match may echo the exact address already entered.
+router.post(
+  "/:id/people/search",
+  peopleSearchLimiter,
+  verifyUser,
+  loadAndAuthorize(Pieces, "id", {
+    notFound: "Piece not found",
+    resourceType: "piece",
+    require: "owner",
+  }),
+  async (req, res) => {
+    if (!adminAuth || !adminDb) {
+      return res.status(500).json({ error: "Server not configured" });
+    }
+    const query = String(req.body.query || "").trim();
+    if (query.length < 2) return res.json({ people: [] });
+    try {
+      const excludedUserIds = new Set([
+        req.uid,
+        ...ResourceMembers.list("piece", req.params.id).map((member) => member.userId),
+      ]);
+      let people = [];
+      if (query.includes("@")) {
+        const emailUser = await adminAuth
+          .getUserByEmail(query.toLowerCase())
+          .catch(() => null);
+        if (
+          emailUser &&
+          !excludedUserIds.has(emailUser.uid)
+        ) {
+          people.push(await getProfileSummary(emailUser.uid, true));
+        }
+      } else {
+        const variants = Array.from(new Set([
+          query,
+          query.toLowerCase(),
+          query.charAt(0).toUpperCase() + query.slice(1).toLowerCase(),
+          query.replace(/\b\w/g, (letter) => letter.toUpperCase()),
+        ]));
+        const snapshots = await Promise.all(
+          variants.map((prefix) =>
+            adminDb
+              .collection("profiles")
+              .orderBy("display_name")
+              .startAt(prefix)
+              .endAt(`${prefix}\uf8ff`)
+              .limit(8)
+              .get(),
+          ),
+        );
+        const matches = new Map();
+        for (const snapshot of snapshots) {
+          for (const doc of snapshot.docs) {
+            if (!excludedUserIds.has(doc.id)) matches.set(doc.id, doc.data());
+          }
+        }
+        people = Array.from(matches, ([userId, profile]) => ({
+          userId,
+          displayName: profile.display_name || "Glaze Library user",
+          photoDataUrl: profile.photo_data_url || null,
+        }))
+          .sort((a, b) => a.displayName.localeCompare(b.displayName))
+          .slice(0, 8);
+      }
+      res.json({ people });
+    } catch (error) {
+      console.error("Search people error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+);
+
+// POST /:id/invitations — invite an existing account by selected user id or
+// typed email; owner only.
 router.post(
   "/:id/invitations",
   verifyUser,
@@ -141,10 +217,15 @@ router.post(
     if (!adminAuth || !adminDb) {
       return res.status(500).json({ error: "Server not configured" });
     }
+    const userId = String(req.body.userId || "").trim();
     const email = String(req.body.email || "").trim().toLowerCase();
-    if (!email) return res.status(400).json({ error: "Email is required" });
+    if (!userId && !email) {
+      return res.status(400).json({ error: "Choose a person or enter an email" });
+    }
     try {
-      const invitedUser = await adminAuth.getUserByEmail(email);
+      const invitedUser = userId
+        ? await adminAuth.getUser(userId)
+        : await adminAuth.getUserByEmail(email);
       if (invitedUser.uid === req.uid) {
         return res.status(400).json({ error: "You already own this piece" });
       }
