@@ -13,7 +13,7 @@
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
 
-import { getPhotoOwner } from "../../storage.js";
+import { getPhotoOwner, isPhotoOwnedByUser } from "../../storage.js";
 
 describe("getPhotoOwner", () => {
   it("recognises piece photos by path", () => {
@@ -58,5 +58,34 @@ describe("getPhotoOwner", () => {
     assert.equal(getPhotoOwner(null), "unknown");
     assert.equal(getPhotoOwner(undefined), "unknown");
     assert.equal(getPhotoOwner("/some/other/path.jpg"), "unknown");
+  });
+});
+
+describe("isPhotoOwnedByUser", () => {
+  it("requires the managed namespace and exact user path", () => {
+    assert.equal(
+      isPhotoOwnedByUser(
+        "/uploads/user-combinations/user-123/photo.jpg",
+        "upload",
+        "user-123",
+      ),
+      true,
+    );
+    assert.equal(
+      isPhotoOwnedByUser(
+        "/uploads/user-combinations/other-user/photo.jpg",
+        "upload",
+        "user-123",
+      ),
+      false,
+    );
+    assert.equal(
+      isPhotoOwnedByUser(
+        "https://example.com/uploads/user-combinations/user-123/photo.jpg",
+        "upload",
+        "user-123",
+      ),
+      false,
+    );
   });
 });

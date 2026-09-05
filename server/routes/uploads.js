@@ -9,7 +9,7 @@
 
 import { Router } from "express";
 import { randomUUID } from "crypto";
-import { deleteImage, getPhotoOwner } from "../storage.js";
+import { deleteImage, isPhotoOwnedByUser } from "../storage.js";
 import { upload, assembleImages } from "../lib/images.js";
 import { makeCombinationId } from "../lib/combinationId.js";
 import { Pieces, ResourceMembers, Uploads } from "../lib/repositories.js";
@@ -29,9 +29,9 @@ function ensureBody(req, _res, next) {
   next();
 }
 
-async function deleteOwnedPhotos(urls) {
+async function deleteOwnedPhotos(urls, userId) {
   for (const url of urls) {
-    if (getPhotoOwner(url) !== "upload") continue;
+    if (!isPhotoOwnedByUser(url, "upload", userId)) continue;
     await deleteImage(url);
   }
 }
@@ -163,19 +163,19 @@ router.delete(
       const { id } = req.params;
       const existing = req.resource;
       const urls = existing.imageUrls || (existing.imageUrl ? [existing.imageUrl] : []);
-      await deleteOwnedPhotos(urls);
-      Uploads.delete(id);
 
       // Unlink this entry from any piece's publishedEntries so the piece's
       // "Published results" doesn't show a card pointing to a deleted upload.
-      if (existing.userId) {
-        for (const piece of Pieces.listForUser(existing.userId)) {
-          const linked = piece.publishedEntries || [];
-          if (!linked.some((p) => p.entryId === id)) continue;
-          Pieces.update(piece.id, {
-            publishedEntries: linked.filter((p) => p.entryId !== id),
-          });
-        }
+      for (const piece of Pieces.listLinkedToPublishedEntry(id)) {
+        Pieces.update(piece.id, {
+          publishedEntries: piece.publishedEntries.filter((entry) => entry.entryId !== id),
+        });
+      }
+      Uploads.delete(id);
+      try {
+        await deleteOwnedPhotos(urls, existing.userId);
+      } catch (error) {
+        console.error("Upload delete: photo cleanup failed:", error.message);
       }
 
       res.json({ success: true });
@@ -223,11 +223,11 @@ router.put(
       });
 
       const kept = new Set(imageUrls);
-      for (const url of existingImageUrls) {
-        if (kept.has(url)) continue;
-        if (getPhotoOwner(url) !== "upload") continue;
-        await deleteImage(url);
-      }
+      const removedImageUrls = existingImageUrls.filter(
+        (url) =>
+          !kept.has(url) &&
+          isPhotoOwnedByUser(url, "upload", existing.userId),
+      );
 
       const nextTop = topGlazeId !== undefined ? topGlazeId : existing.topGlazeId;
       const nextBottom = bottomGlazeId !== undefined ? bottomGlazeId : existing.bottomGlazeId;
@@ -249,6 +249,17 @@ router.put(
             ? makeCombinationId(nextTop, nextBottom)
             : existing.combinationId,
       });
+
+      if (updated.combinationId !== existing.combinationId) {
+        Pieces.updatePublishedEntryCombination(id, updated.combinationId);
+      }
+      for (const url of removedImageUrls) {
+        try {
+          await deleteImage(url);
+        } catch (error) {
+          console.error("Upload update: photo cleanup failed for", url, error.message);
+        }
+      }
 
       res.json({
         success: true,

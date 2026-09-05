@@ -390,16 +390,19 @@ router.put(
         return res.status(403).json({ error: "Only the owner can archive this piece" });
       }
 
-      // If stageRecords is being rewritten, delete any photos this piece owns
-      // that are not in the new version.
+      let removedPhotoUrls = [];
       if (stageRecords !== undefined) {
         const oldPhotos = collectStagePhotos(existing.stageRecords);
+        const oldPhotoSet = new Set(oldPhotos);
         const newPhotos = new Set(collectStagePhotos(stageRecords));
-        for (const url of oldPhotos) {
-          if (newPhotos.has(url)) continue;
-          if (getPhotoOwner(url) !== "piece") continue;
-          await deleteImage(url);
+        if ([...newPhotos].some((url) => !oldPhotoSet.has(url))) {
+          return res.status(400).json({
+            error: "Photos must be added through the piece photo upload",
+          });
         }
+        removedPhotoUrls = oldPhotos.filter(
+          (url) => !newPhotos.has(url) && getPhotoOwner(url) === "piece",
+        );
       }
 
       const updated = Pieces.update(id, {
@@ -413,6 +416,13 @@ router.put(
         ...(publishedEntries !== undefined && { publishedEntries }),
         ...(isArchived !== undefined && { isArchived }),
       });
+      for (const url of removedPhotoUrls) {
+        try {
+          await deleteImage(url);
+        } catch (error) {
+          console.error("Piece update: photo cleanup failed for", url, error.message);
+        }
+      }
       res.json({ piece: { ...updated, viewerAccess: req.access } });
     } catch (error) {
       console.error("Update piece error:", error);
@@ -437,10 +447,9 @@ router.delete(
   async (req, res) => {
     try {
       const { id } = req.params;
-      for (const url of collectStagePhotos(req.resource.stageRecords)) {
-        if (getPhotoOwner(url) !== "piece") continue;
-        await deleteImage(url);
-      }
+      const ownedPhotoUrls = collectStagePhotos(req.resource.stageRecords).filter(
+        (url) => getPhotoOwner(url) === "piece",
+      );
       // Cascade: the piece's inspo collection is owned by the piece, so it
       // goes with it. Photos referenced by the inspo collection's likes are
       // not the piece's to delete (they belong to the underlying glaze or
@@ -451,6 +460,13 @@ router.delete(
       }
       ResourceMembers.removeAllFor("piece", id);
       Pieces.delete(id);
+      for (const url of ownedPhotoUrls) {
+        try {
+          await deleteImage(url);
+        } catch (error) {
+          console.error("Piece delete: photo cleanup failed for", url, error.message);
+        }
+      }
       res.json({ success: true });
     } catch (error) {
       console.error("Delete piece error:", error);
@@ -533,16 +549,25 @@ router.delete(
         return res.status(400).json({ error: "stage and photoUrl are required" });
       }
 
+      const requestedStage = String(stage);
+      const requestedPhotoUrl = String(photoUrl);
+      const stageRecord = (req.resource.stageRecords || []).find(
+        (record) => record.stage === requestedStage,
+      );
+      if (!stageRecord?.photos?.includes(requestedPhotoUrl)) {
+        return res.status(404).json({ error: "Photo not found on this piece stage" });
+      }
+
       const stageRecords = (req.resource.stageRecords || []).map((r) =>
-        r.stage === stage
-          ? { ...r, photos: (r.photos || []).filter((u) => u !== photoUrl) }
+        r.stage === requestedStage
+          ? { ...r, photos: (r.photos || []).filter((u) => u !== requestedPhotoUrl) }
           : r,
       );
       const updated = Pieces.update(id, { stageRecords });
 
-      if (getPhotoOwner(photoUrl) === "piece") {
+      if (getPhotoOwner(requestedPhotoUrl) === "piece") {
         try {
-          await deleteImage(photoUrl);
+          await deleteImage(requestedPhotoUrl);
         } catch {
           /* best-effort */
         }

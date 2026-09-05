@@ -267,6 +267,28 @@ export const Pieces = {
       .all(userId)
       .map(rowToPiece);
   },
+  listLinkedToPublishedEntry(entryId) {
+    if (!entryId) return [];
+    return db
+      .prepare(
+        `SELECT DISTINCT pieces.*
+         FROM pieces, json_each(pieces.published_entries_json) AS published
+         WHERE json_extract(published.value, '$.entryId') = ?`,
+      )
+      .all(entryId)
+      .map(rowToPiece);
+  },
+  updatePublishedEntryCombination(entryId, combinationId) {
+    const linkedPieces = Pieces.listLinkedToPublishedEntry(entryId);
+    for (const piece of linkedPieces) {
+      Pieces.update(piece.id, {
+        publishedEntries: piece.publishedEntries.map((entry) =>
+          entry.entryId === entryId ? { ...entry, comboId: combinationId } : entry,
+        ),
+      });
+    }
+    return linkedPieces.length;
+  },
   get(id) {
     return rowToPiece(db.prepare("SELECT * FROM pieces WHERE id = ?").get(id));
   },

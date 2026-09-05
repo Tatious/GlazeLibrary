@@ -152,6 +152,34 @@ function getPhotoOwner(url) {
   return "unknown";
 }
 
+function getManagedStoragePath(imageUrl) {
+  if (!imageUrl) return null;
+  if (!imageUrl.startsWith("http://") && !imageUrl.startsWith("https://")) {
+    return imageUrl.replace(/^\/+/, "");
+  }
+  if (!useAzureStorage || !containerClient) return null;
+  try {
+    const source = new URL(imageUrl);
+    const container = new URL(containerClient.url);
+    const containerPrefix = `${container.pathname.replace(/\/$/, "")}/`;
+    if (source.origin !== container.origin || !source.pathname.startsWith(containerPrefix)) {
+      return null;
+    }
+    return source.pathname.slice(containerPrefix.length);
+  } catch {
+    return null;
+  }
+}
+
+function isPhotoOwnedByUser(imageUrl, owner, userId) {
+  const storagePath = getManagedStoragePath(imageUrl);
+  if (!storagePath || !userId) return false;
+  const folder = owner === "piece" ? "pieces" : "user-combinations";
+  return storagePath.startsWith(
+    `uploads/${folder}/${encodeURIComponent(userId)}/`,
+  );
+}
+
 /**
  * Normalize a stored image URL to its blob name within the configured container.
  * Returns null if the URL is not from our own storage.
@@ -236,6 +264,7 @@ export {
   copyImage,
   deleteImage,
   getPhotoOwner,
+  isPhotoOwnedByUser,
   urlToBlobName,
   urlToLocalPath,
   getUploadsDir,

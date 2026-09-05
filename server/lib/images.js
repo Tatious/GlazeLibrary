@@ -16,6 +16,7 @@ import {
   saveImage,
   copyImage,
   getPhotoOwner,
+  isPhotoOwnedByUser,
   useAzureStorage,
   getUploadsDir,
 } from "../storage.js";
@@ -133,8 +134,12 @@ export async function assembleImages({
   const final = [];
   for (const url of raw) {
     const owner = getPhotoOwner(url);
-    if (owner === destOwner || owner === "external" || owner === "unknown") {
-      // Already ours, or not a managed image (leave as-is)
+    if (
+      (owner === destOwner && isPhotoOwnedByUser(url, destOwner, userId)) ||
+      owner === "external" ||
+      owner === "unknown"
+    ) {
+      // Already owned by this user, or not a managed image (leave as-is).
       final.push(url);
       continue;
     }

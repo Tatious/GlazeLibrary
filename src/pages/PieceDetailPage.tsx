@@ -557,6 +557,7 @@ export function PieceDetailPage() {
               <Input
                 tone="terracotta"
                 inputSize="sm"
+                aria-label="Piece name"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
               />
