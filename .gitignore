@@ -1,5 +1,5 @@
 # ============================================================================
-# GlazeServer — root .gitignore
+# GlazeLibrary - root .gitignore
 # ============================================================================
 
 # OS / editor
@@ -46,6 +46,7 @@ dist-ssr/
 # Deployment artifacts
 **/deploy_pkg/
 **/deploy.zip
+vendor/tatious-ui-*.tgz
 
 # Git history backups (never commit a nested git backup dir)
 .git.backup-*
@@ -55,6 +56,11 @@ dist-ssr/
 *.db
 *.db-shm
 *.db-wal
+server/data/
+
+# Test output
+playwright-report/
+test-results/
 
 # Python
 __pycache__/
@@ -64,14 +70,14 @@ __pycache__/
 # ---------------------------------------------------------------------------
 # Bulk media & scraper caches
 # These are served from Azure Blob Storage / CDN in production and are
-# regenerable via the scrapers in utils/scrapers. Excluded to keep the repo
-# small and clonable. See utils/scrapers/README.md to rebuild.
+# regenerable via the scrapers in scripts/scrapers. Excluded to keep the repo
+# small and clonable. See scripts/scrapers/README.md to rebuild.
 # ---------------------------------------------------------------------------
-app/glaze-viewer/public/images/
-utils/scrapers/**/images/
-utils/scrapers/**/html_cache/
-utils/scrapers/**/html_cache_valid/
-utils/scrapers/ai-enrichment/cache/
+public/images/
+scripts/scrapers/**/images/
+scripts/scrapers/**/html_cache/
+scripts/scrapers/**/html_cache_valid/
+scripts/scrapers/ai-enrichment/cache/
 
 # Runtime user uploads (stored in Azure Blob in prod)
-app/glaze-viewer/public/uploads/
+public/uploads/

@@ -1,0 +1,59 @@
+{
+  "planHash": "d72b9f35eb2402b2f5d8cd62ff4e2bd7921103388dc2610aac740cb005557f05",
+  "phase": "postupgrade",
+  "recordedAtUtc": "2026-08-15T05:59:47.5130620Z",
+  "retryCount": 0,
+  "resetBaseline": false,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 1234,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\n\u003E glaze-viewer@0.0.0 build\n\u003E tsc -b \u0026\u0026 vite build\n\nvite v5.4.21 building for production...\ntransforming...\n\u2713 632 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     2.06 kB \u2502 gzip:   0.91 kB\ndist/assets/index-Bl1tOgIR.css     73.29 kB \u2502 gzip:  12.63 kB\ndist/assets/index-BoWA--4O.js   1,209.23 kB \u2502 gzip: 319.87 kB\n\n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n\u2713 built in 2.12s\n",
+        "durationMs": 5823
+      },
+      {
+        "name": "dev-server-serves-home",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!doctype html\u003E\n\u003Chtml lang=\u0022en\u0022 class=\u0022bg-clay-50 dark:bg-earth-900\u0022\u003E\n  \u003Chead\u003E\n    \u003Cscript type=\u0022module\u0022\u003Eimport { injectIntoGlobalHook } from \u0022/@react-refresh\u0022;\ninjectIntoGlobalHook(window);\nwindow.$RefreshReg$ = () =\u003E {};\nwindow.$RefreshSig$ = () =\u003E (type) =\u003E type;\u003C/script\u003E\n\n    \u003Cscript type=\u0022module\u0022 src=\u0022/@vite/client\u0022\u003E\u003C/script\u003E\n\n    \u003Cmeta charset=\u0022UTF-8\u0022 /\u003E\n    \u003Clink\n      rel=\u0022icon\u0022\n      href=\u0022data:image/svg\u002Bxml,\u003Csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 viewBox=\u00270 0 24 24\u0027 fill=\u0027none\u0027 stroke=\u0027%236b8e6b\u0027 stroke-width=\u00272\u0027 stroke-linecap=\u0027round\u0027 stroke-linejoin=\u0027round\u0027\u003E\u003Ccircle cx=\u002713.5\u0027 cy=\u00276.5\u0027 r=\u0027.5\u0027 fill=\u0027%236b8e6b\u0027/\u003E\u003Ccircle cx=\u002717.5\u0027 cy=\u002710.5\u0027 r=\u0027.5\u0027 fill=\u0027%236b8e6b\u0027/\u003E\u003Ccircle cx=\u00278.5\u0027 cy=\u00277.5\u0027 r=\u0027.5\u0027 fill=\u0027%236b8e6b\u0027/\u003E\u003Ccircle cx=\u00276.5\u0027 cy=\u002712.5\u0027 r=\u0027.5\u0027 fill=\u0027%236b8e6b\u0027/\u003E\u003Cpath d=\u0027M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z\u0027/\u003E\u003C/svg\u003E\u0022\n    /\u003E\n    \u003Cmeta\n      name=\u0022viewport\u0022\n      content=\u0022width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content\u0022\n    /\u003E\n    \u003Cmeta\n      name=\u0022theme-color\u0022\n      content=\u0022#fefdfb\u0022\n      media=\u0022(prefers-color-scheme: light)\u0022\n    /\u003E\n    \u003Cmeta\n      name=\u0022theme-color\u0022\n      content=\u0022#1a1a1a\u0022\n      media=\u0022(prefers-color-scheme: dark)\u0022\n    /\u003E\n    \u003Cmeta\n      name=\u0022description\u0022\n      content=\u0022Explore AMACO and Mayco glaze combinations for pottery and ceramics\u0022\n    /\u003E\n\n    \u003C!-- PWA \u2014 installable on iOS (Add to Home Screen) and Android --\u003E\n    \u003Clink rel=\u0022manifest\u0022 href=\u0022/manifest.webmanifest\u0022 /\u003E\n    \u003Clink rel=\u0022apple-touch-icon\u0022 href=\u0022/apple-touch-icon.png\u0022 /\u003E\n    \u003Cmeta name=\u0022apple-mobile-web-app-capable\u0022 content=\u0022yes\u0022 /\u003E\n    \u003Cmeta name=\u0022mobile-web-app-capable\u0022 content=\u0022yes\u0022 /\u003E\n    \u003Cmeta name=\u0022apple-mobile-web-app-status-bar-style\u0022 content=\u0022default\u0022 /\u003E\n    \u003Cmeta name=\u0022apple-mobile-web-app-title\u0022 content=\u0022Glazes\u0022 /\u003E\n    \u003Cmeta name=\u0022application-name\u0022 content=\u0022Glazes\u0022 /\u003E\n\n    \u003Ctitle\u003EGlazes\u003C/title\u003E\n  \u003C/head\u003E\n  \u003Cbody class=\u0022bg-clay-50 dark:bg-earth-900\u0022\u003E\n    \u003Cdiv id=\u0022root\u0022\u003E\u003C/div\u003E\n    \u003Cscript type=\u0022module\u0022 src=\u0022/src/main.tsx\u0022\u003E\u003C/script\u003E\n  \u003C/body\u003E\n\u003C/html\u003E\n\n--- server output ---\n\n\u003E glaze-viewer@0.0.0 dev:vite\n\u003E vite --host\n\nRe-optimizing dependencies because lockfile has changed\n\n  VITE v5.4.21  ready in 242 ms\n\n  \u279C  Local:   http://localhost:5178/\n  \u279C  Network: http://10.0.0.193:5178/\n",
+        "durationMs": 646
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\n\u003E glaze-viewer@0.0.0 test:server\n\u003E node --test server/lib/__tests__/**/*.test.js\n\nStorage mode: Local File System\n\u25B6 getPhotoOwner\n  \u2714 recognises piece photos by path (0.793333ms)\n  \u2714 recognises upload photos by path (0.2475ms)\n  \u2714 treats other absolute URLs as external (scraped manufacturer photos) (0.075625ms)\n  \u2714 returns \u0027unknown\u0027 for unrecognised or empty input (0.064458ms)\n\u2714 getPhotoOwner (2.2035ms)\n\u2139 tests 4\n\u2139 suites 1\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 97.5405\n",
+        "durationMs": 337,
+        "testResults": {
+          "testFramework": "unknown",
+          "runnerDetectedFrom": "none",
+          "testsTotal": 0,
+          "testsPassed": 0,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": true
+        }
+      }
+    ]
+  }
+}
