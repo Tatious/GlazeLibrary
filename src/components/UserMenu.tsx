@@ -8,6 +8,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { STORAGE_KEYS } from "../config/storageKeys";
 import { User } from "./Icons";
+import { UserAvatar } from "./UserAvatar";
 
 export function UserMenu() {
   const { user, profile, isAdmin, signOut } = useAuth();
@@ -56,13 +57,6 @@ export function UserMenu() {
   // Logged in - show user dropdown
   const displayName =
     profile?.display_name || user.email?.split("@")[0] || "User";
-  const initials = displayName
-    .split(" ")
-    .map((n: string) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
-
   return (
     <div className="relative" ref={menuRef}>
       <button
@@ -72,9 +66,11 @@ export function UserMenu() {
         aria-haspopup="true"
       >
         {/* Avatar */}
-        <div className="w-7 h-7 rounded-full bg-terracotta-500 flex items-center justify-center text-white text-xs font-medium">
-          {initials}
-        </div>
+        <UserAvatar
+          name={displayName}
+          photoDataUrl={profile?.photo_data_url}
+          className="w-7 h-7 text-xs"
+        />
       </button>
 
       {/* Dropdown menu */}

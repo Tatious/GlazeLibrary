@@ -7,8 +7,13 @@
  * that token, never from request bodies/query strings.
  */
 
-import type { PotteryPiece, PieceStage } from "../types/models";
-import { authFetch, authFetchForm } from "../lib/authFetch";
+import type {
+  MyPieces,
+  PieceCollaborator,
+  PotteryPiece,
+  PieceStage,
+} from "../types/models";
+import { authFetch, authFetchForm, optionalAuthFetch } from "../lib/authFetch";
 
 interface PieceResponse {
   piece: PotteryPiece;
@@ -34,8 +39,53 @@ export async function listPieces(userId: string): Promise<PotteryPiece[]> {
 }
 
 export async function getPiece(id: string): Promise<PotteryPiece> {
-  const data = await jsonFetch<PieceResponse>(`/api/pieces/${id}`);
-  return data.piece;
+  const data = await optionalAuthFetch<PieceResponse & { viewerAccess: PotteryPiece["viewerAccess"] }>(
+    `/api/pieces/${id}`,
+  );
+  return { ...data.piece, viewerAccess: data.viewerAccess };
+}
+
+export function listMyPieces(): Promise<MyPieces> {
+  return authFetch<MyPieces>("/api/pieces/mine");
+}
+
+export async function listPieceCollaborators(id: string): Promise<PieceCollaborator[]> {
+  const data = await authFetch<{ collaborators: PieceCollaborator[] }>(
+    `/api/pieces/${id}/collaborators`,
+  );
+  return data.collaborators;
+}
+
+export async function invitePieceCollaborator(
+  id: string,
+  email: string,
+): Promise<PieceCollaborator> {
+  const data = await authFetch<{ collaborator: PieceCollaborator }>(
+    `/api/pieces/${id}/invitations`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    },
+  );
+  return data.collaborator;
+}
+
+export function respondToPieceInvitation(
+  id: string,
+  action: "accept" | "reject",
+): Promise<{ piece?: PotteryPiece; success?: true }> {
+  return authFetch(`/api/pieces/${id}/invitations/me`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action }),
+  });
+}
+
+export function removePieceCollaborator(id: string, userId: string): Promise<void> {
+  return authFetch(`/api/pieces/${id}/collaborators/${encodeURIComponent(userId)}`, {
+    method: "DELETE",
+  });
 }
 
 export async function createPiece(input: {

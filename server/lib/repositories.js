@@ -503,20 +503,33 @@ export const Inventory = {
 // ============================================================================
 
 export const ResourceMembers = {
-  getRole(resourceType, resourceId, userId) {
+  get(resourceType, resourceId, userId) {
     if (!resourceType || !resourceId || !userId) return null;
     const row = db
       .prepare(
-        `SELECT role FROM resource_members
+        `SELECT user_id, role, status, added_by, added_at
+         FROM resource_members
          WHERE resource_type = ? AND resource_id = ? AND user_id = ?`,
       )
       .get(resourceType, resourceId, userId);
-    return row ? row.role : null;
+    return row
+      ? {
+          userId: row.user_id,
+          role: row.role,
+          status: row.status,
+          addedBy: row.added_by,
+          addedAt: row.added_at,
+        }
+      : null;
+  },
+  getRole(resourceType, resourceId, userId) {
+    const member = ResourceMembers.get(resourceType, resourceId, userId);
+    return member?.status === "accepted" ? member.role : null;
   },
   list(resourceType, resourceId) {
     return db
       .prepare(
-        `SELECT user_id, role, added_by, added_at FROM resource_members
+        `SELECT user_id, role, status, added_by, added_at FROM resource_members
          WHERE resource_type = ? AND resource_id = ?
          ORDER BY datetime(added_at) ASC`,
       )
@@ -524,27 +537,53 @@ export const ResourceMembers = {
       .map((r) => ({
         userId: r.user_id,
         role: r.role,
+        status: r.status,
         addedBy: r.added_by,
         addedAt: r.added_at,
       }));
   },
-  add(resourceType, resourceId, userId, role, addedBy) {
+  listForUser(resourceType, userId) {
+    return db
+      .prepare(
+        `SELECT resource_id, role, status, added_by, added_at
+         FROM resource_members
+         WHERE resource_type = ? AND user_id = ?
+         ORDER BY datetime(added_at) DESC`,
+      )
+      .all(resourceType, userId)
+      .map((r) => ({
+        resourceId: r.resource_id,
+        role: r.role,
+        status: r.status,
+        addedBy: r.added_by,
+        addedAt: r.added_at,
+      }));
+  },
+  invite(resourceType, resourceId, userId, role, addedBy) {
     if (!["piece", "collection"].includes(resourceType)) {
-      throw new Error(`ResourceMembers.add: invalid resourceType ${resourceType}`);
+      throw new Error(`ResourceMembers.invite: invalid resourceType ${resourceType}`);
     }
-    // Today only 'editor' rows are written. 'owner' is reserved for a future
-    // transfer-ownership flow and should be accepted by the schema (no CHECK
-    // constraint) but rejected here until that flow ships and an explicit
-    // helper (e.g. `transferOwner`) takes responsibility for the invariants.
     if (role !== "editor") {
-      throw new Error(`ResourceMembers.add: invalid role ${role}`);
+      throw new Error(`ResourceMembers.invite: invalid role ${role}`);
     }
     db.prepare(
       `INSERT OR IGNORE INTO resource_members
-         (resource_type, resource_id, user_id, role, added_by, added_at)
-       VALUES (?, ?, ?, ?, ?, ?)`,
+         (resource_type, resource_id, user_id, role, status, added_by, added_at)
+       VALUES (?, ?, ?, ?, 'pending', ?, ?)`,
     ).run(resourceType, resourceId, userId, role, addedBy, new Date().toISOString());
-    return ResourceMembers.getRole(resourceType, resourceId, userId);
+    return ResourceMembers.get(resourceType, resourceId, userId);
+  },
+  accept(resourceType, resourceId, userId) {
+    const result = db
+      .prepare(
+        `UPDATE resource_members SET status = 'accepted'
+         WHERE resource_type = ? AND resource_id = ? AND user_id = ?
+           AND status = 'pending'`,
+      )
+      .run(resourceType, resourceId, userId);
+    return result.changes > 0
+      ? ResourceMembers.get(resourceType, resourceId, userId)
+      : null;
   },
   remove(resourceType, resourceId, userId) {
     return (
@@ -625,6 +664,20 @@ export const Migrations = {
       CREATE INDEX IF NOT EXISTS resource_members_user_idx
         ON resource_members(user_id, resource_type);
     `);
+    Migrations.markRun(NAME);
+  },
+  addResourceMemberStatusColumn() {
+    const NAME = "2026-09-resource-member-invitations";
+    if (Migrations.hasRun(NAME)) return;
+    const hasColumn = db
+      .prepare("PRAGMA table_info(resource_members)")
+      .all()
+      .some((column) => column.name === "status");
+    if (!hasColumn) {
+      db.exec(
+        "ALTER TABLE resource_members ADD COLUMN status TEXT NOT NULL DEFAULT 'accepted'",
+      );
+    }
     Migrations.markRun(NAME);
   },
 };

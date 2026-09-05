@@ -13,8 +13,29 @@
 
 import { Router } from "express";
 import { adminDb } from "../lib/firebase-admin.js";
+import { verifyUser } from "../middleware/auth.js";
+import { validateProfilePhoto } from "../lib/profile-photo.js";
 
 const router = Router();
+
+router.put("/photo", verifyUser, async (req, res) => {
+  if (!adminDb) {
+    return res.status(500).json({ error: "Server not configured" });
+  }
+  try {
+    const photoDataUrl = validateProfilePhoto(req.body.photoDataUrl);
+    const ref = adminDb.collection("profiles").doc(req.uid);
+    await ref.update({
+      photo_data_url: photoDataUrl,
+      updated_at: new Date().toISOString(),
+    });
+    const updated = await ref.get();
+    res.json({ profile: updated.data() });
+  } catch (error) {
+    const isValidationError = error.message?.startsWith("Profile photo");
+    res.status(isValidationError ? 400 : 500).json({ error: error.message });
+  }
+});
 
 // GET /:userId
 router.get("/:userId", async (req, res) => {

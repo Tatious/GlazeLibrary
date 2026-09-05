@@ -12,7 +12,7 @@ import { randomUUID } from "crypto";
 import { deleteImage, getPhotoOwner } from "../storage.js";
 import { upload, assembleImages } from "../lib/images.js";
 import { makeCombinationId } from "../lib/combinationId.js";
-import { Pieces, Uploads } from "../lib/repositories.js";
+import { Pieces, ResourceMembers, Uploads } from "../lib/repositories.js";
 import { verifyUser } from "../middleware/auth.js";
 import { loadAndAuthorize } from "../middleware/loadAndAuthorize.js";
 import { parseJsonOrDefault } from "../lib/json.js";
@@ -106,7 +106,11 @@ router.post(
     if (pieceId) {
       try {
         const piece = Pieces.get(pieceId);
-        if (piece && piece.userId === userId) {
+        const canEditPiece = piece && (
+          piece.userId === userId ||
+          ResourceMembers.getRole("piece", pieceId, userId) === "editor"
+        );
+        if (canEditPiece) {
           const already = (piece.publishedEntries || []).some(
             (p) => p.entryId === entry.id,
           );

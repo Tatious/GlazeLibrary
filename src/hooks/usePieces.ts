@@ -11,7 +11,8 @@ import {
   deletePiece,
   deleteStagePhoto,
   getPiece,
-  listPieces,
+  listMyPieces,
+  respondToPieceInvitation,
   updatePiece,
   uploadStagePhoto,
 } from "../api/piecesApi";
@@ -19,12 +20,24 @@ import { queryKeys } from "../api/queryKeys";
 import { useAuth } from "./useAuth";
 import type { PieceStage, PotteryPiece } from "../types/models";
 
-export function usePieces() {
+export function useMyPieces() {
   const { user } = useAuth();
   return useQuery({
     queryKey: queryKeys.pieces(user?.uid),
-    queryFn: () => (user ? listPieces(user.uid) : Promise.resolve([])),
+    queryFn: () => (user ? listMyPieces() : Promise.resolve({ owned: [], shared: [], invitations: [] })),
     enabled: !!user,
+  });
+}
+
+export function useRespondToPieceInvitation() {
+  const { user } = useAuth();
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, action }: { id: string; action: "accept" | "reject" }) =>
+      respondToPieceInvitation(id, action),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: queryKeys.pieces(user?.uid) });
+    },
   });
 }
 

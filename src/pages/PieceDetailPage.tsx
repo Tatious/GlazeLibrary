@@ -22,6 +22,7 @@ import { PageLayout } from "../components/PageLayout";
 import { Spinner } from "../components/Spinner";
 import { StagePhotoUpload } from "../components/piece/StagePhotoUpload";
 import { GlazesSection } from "../components/piece/GlazesSection";
+import { PieceCollaborators } from "../components/piece/PieceCollaborators";
 import { Input, Textarea } from "../components/Input";
 import {
   Check,
@@ -465,7 +466,8 @@ export function PieceDetailPage() {
 
   if (!piece) return null;
 
-  const isOwner = user?.uid === piece.userId;
+  const isOwner = piece.viewerAccess === "owner" || user?.uid === piece.userId;
+  const canEdit = isOwner || piece.viewerAccess === "editor";
 
   return (
     <PageLayout maxWidth="7xl" padY="8">
@@ -519,7 +521,7 @@ export function PieceDetailPage() {
                 <p className="mt-2 text-sm text-clay-600 dark:text-clay-300">{piece.notes}</p>
               )}
             </div>
-            {isOwner && (
+            {canEdit && (
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={() => setIsEditing(true)}
@@ -678,7 +680,7 @@ export function PieceDetailPage() {
                     </div>
 
                     {/* Stage actions for owner */}
-                    {isOwner && (isDone || isCurrent) && (
+                    {canEdit && (isDone || isCurrent) && (
                       <StagePhotoUpload
                         piece={piece}
                         stage={stage}
@@ -687,7 +689,7 @@ export function PieceDetailPage() {
                     )}
 
                     {/* Advance to next stage */}
-                    {isOwner && isNext && (
+                    {canEdit && isNext && (
                       <button
                         onClick={() => handleAdvanceStage(stage)}
                         className="mt-1 inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg bg-terracotta-50 dark:bg-terracotta-900/20 border border-terracotta-300 dark:border-terracotta-700 text-terracotta-700 dark:text-terracotta-300 hover:bg-terracotta-100 dark:hover:bg-terracotta-900/40 transition-colors font-medium"
@@ -706,7 +708,7 @@ export function PieceDetailPage() {
       </div>
 
       {/* Glazes section */}
-      {isOwner && (
+      {canEdit && (
         <div className="mb-6">
           <GlazesSection
             piece={piece}
@@ -719,7 +721,7 @@ export function PieceDetailPage() {
       )}
 
       {/* Glaze Inspo section */}
-      {isOwner && (
+      {canEdit && (
         <div className="bg-white dark:bg-earth-800 rounded-xl p-6 shadow-sm border-2 border-clay-200 dark:border-earth-600 mb-6">
           <div className="flex items-center justify-between mb-4 gap-3">
             <div className="min-w-0">
@@ -852,6 +854,8 @@ export function PieceDetailPage() {
         </div>
       )}
 
+      {isOwner && <PieceCollaborators pieceId={piece.id} />}
+
       {/* Actions (owner only) */}
       {isOwner && (
         <div className="bg-white dark:bg-earth-800 rounded-xl p-6 shadow-sm border-2 border-clay-200 dark:border-earth-600">
@@ -913,7 +917,7 @@ export function PieceDetailPage() {
       {/* Floating drop target — shown only while dragging an inspo tile, so the
           Glaze Plan is reachable even when scrolled out of view. Fixed to the
           bottom to stay clear of the top nav. */}
-      {isOwner && inspoDragActive && (
+      {canEdit && inspoDragActive && (
         <div
           ref={dropBarRef}
           className={`fixed inset-x-0 bottom-0 z-40 flex items-center justify-center gap-2 px-4 pt-3 text-sm font-semibold border-t-2 transition-colors ${

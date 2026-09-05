@@ -6,7 +6,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRequireAuth } from "../hooks/useRequireAuth";
-import { usePieces, useCreatePiece } from "../hooks/usePieces";
+import {
+  useCreatePiece,
+  useMyPieces,
+  useRespondToPieceInvitation,
+} from "../hooks/usePieces";
 import { PageLayout } from "../components/PageLayout";
 import { EmptyState } from "../components/EmptyState";
 import { Spinner } from "../components/Spinner";
@@ -16,6 +20,8 @@ import { Input } from "../components/Input";
 import { Camera, ChevronRight, Droplet, Flame, Plus, Pottery, Sparkles } from "../components/Icons";
 import type { PotteryPiece, PieceStage } from "../types/models";
 import { STAGE_LABELS, STAGE_BADGE_COLORS } from "../lib/pieceStages";
+import { UserAvatar } from "../components/UserAvatar";
+import type { UserSummary } from "../types/models";
 
 const STAGE_ORDER: PieceStage[] = ["greenware", "bisqueware", "fired"];
 
@@ -36,8 +42,12 @@ export function PiecesPage() {
   const location = useLocation();
   // React Query caches the list, so navigating back renders instantly from
   // cache instead of re-fetching + flashing a spinner every visit.
-  const { data: pieces = [], isLoading } = usePieces();
+  const { data: pieceData, isLoading } = useMyPieces();
+  const pieces = pieceData?.owned ?? [];
+  const sharedPieces = pieceData?.shared ?? [];
+  const invitations = pieceData?.invitations ?? [];
   const createPiece = useCreatePiece();
+  const respondToInvitation = useRespondToPieceInvitation();
   const [showNewPieceModal, setShowNewPieceModal] = useState(
     () => (location.state as { openNewPieceModal?: boolean } | null)?.openNewPieceModal === true
   );
@@ -46,6 +56,8 @@ export function PiecesPage() {
   const [newPieceWeight, setNewPieceWeight] = useState("");
   const [createError, setCreateError] = useState<string | null>(null);
   const [showArchived, setShowArchived] = useState(false);
+  const [respondingInvitationId, setRespondingInvitationId] = useState<string | null>(null);
+  const [invitationError, setInvitationError] = useState<string | null>(null);
 
   useEffect(() => {
     if ((location.state as { openNewPieceModal?: boolean } | null)?.openNewPieceModal) {
@@ -72,6 +84,20 @@ export function PiecesPage() {
     }
   };
 
+  const handleInvitation = async (pieceId: string, action: "accept" | "reject") => {
+    setRespondingInvitationId(pieceId);
+    setInvitationError(null);
+    try {
+      await respondToInvitation.mutateAsync({ id: pieceId, action });
+    } catch (error) {
+      setInvitationError(
+        error instanceof Error ? error.message : "Could not respond to the invitation",
+      );
+    } finally {
+      setRespondingInvitationId(null);
+    }
+  };
+
   if (authLoading || isLoading) {
     return (
       <PageLayout maxWidth="7xl" padY="8">
@@ -94,7 +120,8 @@ export function PiecesPage() {
   }
 
   const stagesWithPieces = STAGE_ORDER.filter((s) => grouped[s].length > 0);
-  const isEmpty = activePieces.length === 0;
+  const isEmpty =
+    activePieces.length === 0 && sharedPieces.length === 0 && invitations.length === 0;
 
   return (
     <PageLayout maxWidth="7xl" padY="8">
@@ -120,6 +147,72 @@ export function PiecesPage() {
           </button>
         )}
       </div>
+
+      {invitations.length > 0 && (
+        <section className="mb-8" aria-labelledby="piece-invitations-heading">
+          <div className="flex items-center gap-2 mb-3">
+            <h2 id="piece-invitations-heading" className="text-lg font-semibold text-clay-800 dark:text-clay-200">
+              Invitations
+            </h2>
+            <span className="text-sm text-clay-400 dark:text-earth-500">{invitations.length}</span>
+          </div>
+          {invitationError && <Alert variant="error" className="mb-3">{invitationError}</Alert>}
+          <div className="divide-y divide-clay-200 dark:divide-earth-600 border-y border-clay-200 dark:border-earth-600">
+            {invitations.map(({ piece, owner }) => {
+              const isResponding = respondingInvitationId === piece.id;
+              return (
+                <div key={piece.id} className="flex flex-col sm:flex-row sm:items-center gap-3 py-4">
+                  <UserAvatar
+                    name={owner.displayName}
+                    photoDataUrl={owner.photoDataUrl}
+                    className="w-10 h-10 text-sm"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-clay-800 dark:text-clay-200 truncate">{piece.name}</p>
+                    <p className="text-sm text-clay-500 dark:text-clay-400">
+                      {owner.displayName} invited you to edit
+                    </p>
+                  </div>
+                  <div className="flex gap-2 sm:shrink-0">
+                    <button
+                      type="button"
+                      disabled={isResponding}
+                      onClick={() => void handleInvitation(piece.id, "accept")}
+                      className="px-3 py-1.5 rounded-lg bg-terracotta-600 hover:bg-terracotta-700 text-white text-sm font-medium disabled:opacity-50"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      type="button"
+                      disabled={isResponding}
+                      onClick={() => void handleInvitation(piece.id, "reject")}
+                      className="px-3 py-1.5 rounded-lg border border-clay-300 dark:border-earth-600 text-clay-700 dark:text-clay-300 text-sm font-medium hover:bg-clay-50 dark:hover:bg-earth-700 disabled:opacity-50"
+                    >
+                      Decline
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {sharedPieces.length > 0 && (
+        <section className="mb-8" aria-labelledby="shared-pieces-heading">
+          <div className="flex items-center gap-2 mb-3">
+            <h2 id="shared-pieces-heading" className="text-lg font-semibold text-clay-800 dark:text-clay-200">
+              Shared with you
+            </h2>
+            <span className="text-sm text-clay-400 dark:text-earth-500">{sharedPieces.length}</span>
+          </div>
+          <div className="grid grid-cols-2 xsl:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
+            {sharedPieces.map(({ piece, owner }) => (
+              <PieceCard key={piece.id} piece={piece} owner={owner} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Empty state. `variant="bare"` so it doesn't render as a separate
           floating card — the page already provides the surface. */}
@@ -291,9 +384,11 @@ function PieceCard({
   piece,
   archived,
   hideStage,
+  owner,
 }: {
   piece: PotteryPiece;
   archived?: boolean;
+  owner?: UserSummary;
   /** Set to true when the parent grid groups by stage — prevents the
       floating stage badge from duplicating the section heading. */
   hideStage?: boolean;
@@ -357,6 +452,18 @@ function PieceCard({
         <p className="font-semibold text-clay-800 dark:text-clay-100 text-sm leading-snug line-clamp-2 group-hover:text-terracotta-600 dark:group-hover:text-terracotta-400">
           {piece.name}
         </p>
+        {owner && (
+          <div className="mt-2 flex items-center gap-1.5 min-w-0">
+            <UserAvatar
+              name={owner.displayName}
+              photoDataUrl={owner.photoDataUrl}
+              className="w-5 h-5 text-[9px]"
+            />
+            <span className="text-xs text-clay-500 dark:text-clay-400 truncate">
+              {owner.displayName}
+            </span>
+          </div>
+        )}
         {piece.clayBody && (
           <p className="text-xs text-clay-500 dark:text-clay-400 mt-1 line-clamp-1">
             {piece.clayBody}

@@ -7,6 +7,7 @@
  */
 
 import type { Profile } from "../types/firestore";
+import { authFetch } from "../lib/authFetch";
 
 export async function getProfile(userId: string): Promise<Profile | null> {
   const res = await fetch(`/api/profile/${encodeURIComponent(userId)}`);
@@ -16,5 +17,14 @@ export async function getProfile(userId: string): Promise<Profile | null> {
     throw new Error(body.error || `Request failed: ${res.status}`);
   }
   const data = (await res.json()) as { profile: Profile };
+  return data.profile;
+}
+
+export async function saveProfilePhoto(photoDataUrl: string | null): Promise<Profile> {
+  const data = await authFetch<{ profile: Profile }>("/api/profile/photo", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ photoDataUrl }),
+  });
   return data.profile;
 }

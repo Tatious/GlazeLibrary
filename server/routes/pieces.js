@@ -18,6 +18,7 @@ import {
 } from "../storage.js";
 import { upload, processImage } from "../lib/images.js";
 import { Pieces, Collections, ResourceMembers } from "../lib/repositories.js";
+import { adminAuth, adminDb } from "../lib/firebase-admin.js";
 import { verifyUser, optionalVerifyUser } from "../middleware/auth.js";
 import { loadAndAuthorize } from "../middleware/loadAndAuthorize.js";
 
@@ -27,6 +28,22 @@ const STAGE_ORDER = ["greenware", "bisqueware", "fired"];
 function collectStagePhotos(stageRecords) {
   if (!Array.isArray(stageRecords)) return [];
   return stageRecords.flatMap((r) => r.photos || []);
+}
+
+async function getProfileSummary(userId, includeEmail = false) {
+  const [profileSnap, authUser] = await Promise.all([
+    adminDb?.collection("profiles").doc(userId).get(),
+    includeEmail && adminAuth
+      ? adminAuth.getUser(userId).catch(() => null)
+      : Promise.resolve(null),
+  ]);
+  const profile = profileSnap?.exists ? profileSnap.data() : null;
+  return {
+    userId,
+    displayName: profile?.display_name || authUser?.displayName || "Glaze Library user",
+    photoDataUrl: profile?.photo_data_url || null,
+    ...(includeEmail && { email: authUser?.email || null }),
+  };
 }
 
 // GET /?userId=xxx
@@ -40,6 +57,172 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// GET /mine — owned pieces, accepted collaborations, and invitations for the
+// signed-in user. Kept separate from the public user profile listing above.
+router.get("/mine", verifyUser, async (req, res) => {
+  try {
+    const owned = Pieces.listForUser(req.uid).map((piece) => ({
+      ...piece,
+      viewerAccess: "owner",
+    }));
+    const memberships = ResourceMembers.listForUser("piece", req.uid);
+    const entries = await Promise.all(
+      memberships.map(async (membership) => {
+        const piece = Pieces.get(membership.resourceId);
+        if (!piece) return null;
+        return {
+          piece: {
+            ...piece,
+            viewerAccess:
+              membership.status === "accepted" ? membership.role : "viewer",
+          },
+          owner: await getProfileSummary(piece.userId),
+          invitedAt: membership.addedAt,
+          status: membership.status,
+        };
+      }),
+    );
+    const validEntries = entries.filter(Boolean);
+    res.json({
+      owned,
+      shared: validEntries
+        .filter((entry) => entry.status === "accepted")
+        .map(({ piece, owner }) => ({ piece, owner })),
+      invitations: validEntries
+        .filter((entry) => entry.status === "pending")
+        .map(({ piece, owner, invitedAt }) => ({
+          piece: { id: piece.id, name: piece.name },
+          owner,
+          invitedAt,
+        })),
+    });
+  } catch (error) {
+    console.error("Get my pieces error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /:id/collaborators — owner-only member management.
+router.get(
+  "/:id/collaborators",
+  verifyUser,
+  loadAndAuthorize(Pieces, "id", {
+    notFound: "Piece not found",
+    resourceType: "piece",
+    require: "owner",
+  }),
+  async (req, res) => {
+    try {
+      const collaborators = await Promise.all(
+        ResourceMembers.list("piece", req.params.id).map(async (member) => ({
+          ...member,
+          profile: await getProfileSummary(member.userId, true),
+        })),
+      );
+      res.json({ collaborators });
+    } catch (error) {
+      console.error("Get collaborators error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+);
+
+// POST /:id/invitations — invite an existing account by email; owner only.
+router.post(
+  "/:id/invitations",
+  verifyUser,
+  loadAndAuthorize(Pieces, "id", {
+    notFound: "Piece not found",
+    resourceType: "piece",
+    require: "owner",
+  }),
+  async (req, res) => {
+    if (!adminAuth || !adminDb) {
+      return res.status(500).json({ error: "Server not configured" });
+    }
+    const email = String(req.body.email || "").trim().toLowerCase();
+    if (!email) return res.status(400).json({ error: "Email is required" });
+    try {
+      const invitedUser = await adminAuth.getUserByEmail(email);
+      if (invitedUser.uid === req.uid) {
+        return res.status(400).json({ error: "You already own this piece" });
+      }
+      const existing = ResourceMembers.get("piece", req.params.id, invitedUser.uid);
+      if (existing) {
+        return res.status(409).json({
+          error:
+            existing.status === "pending"
+              ? "That user already has a pending invitation"
+              : "That user is already an editor",
+        });
+      }
+      const member = ResourceMembers.invite(
+        "piece",
+        req.params.id,
+        invitedUser.uid,
+        "editor",
+        req.uid,
+      );
+      res.status(201).json({
+        collaborator: {
+          ...member,
+          profile: await getProfileSummary(invitedUser.uid, true),
+        },
+      });
+    } catch (error) {
+      if (error?.code === "auth/user-not-found") {
+        return res.status(404).json({ error: "No account uses that email" });
+      }
+      console.error("Invite collaborator error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+);
+
+// PATCH /:id/invitations/me — invitees explicitly accept or reject.
+router.patch("/:id/invitations/me", verifyUser, async (req, res) => {
+  try {
+    const piece = Pieces.get(req.params.id);
+    if (!piece) return res.status(404).json({ error: "Piece not found" });
+    const invitation = ResourceMembers.get("piece", req.params.id, req.uid);
+    if (!invitation || invitation.status !== "pending") {
+      return res.status(404).json({ error: "Invitation not found" });
+    }
+    if (req.body.action === "accept") {
+      ResourceMembers.accept("piece", req.params.id, req.uid);
+      return res.json({ piece: { ...Pieces.get(req.params.id), viewerAccess: "editor" } });
+    }
+    if (req.body.action === "reject") {
+      ResourceMembers.remove("piece", req.params.id, req.uid);
+      return res.json({ success: true });
+    }
+    return res.status(400).json({ error: "Action must be accept or reject" });
+  } catch (error) {
+    console.error("Respond to invitation error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE /:id/collaborators/:userId — revoke a pending or accepted member.
+router.delete(
+  "/:id/collaborators/:userId",
+  verifyUser,
+  loadAndAuthorize(Pieces, "id", {
+    notFound: "Piece not found",
+    resourceType: "piece",
+    require: "owner",
+  }),
+  async (req, res) => {
+    try {
+      ResourceMembers.remove("piece", req.params.id, req.params.userId);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Remove collaborator error:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+);
 
 // GET /:id — open to anyone (anonymous OK); returns `viewerAccess` so the
 // client can render edit affordances only when the caller has the rights.
@@ -122,6 +305,10 @@ router.put(
         isArchived,
       } = req.body;
 
+      if (isArchived !== undefined && req.access !== "owner") {
+        return res.status(403).json({ error: "Only the owner can archive this piece" });
+      }
+
       // If stageRecords is being rewritten, delete any photos this piece owns
       // that are not in the new version.
       if (stageRecords !== undefined) {
@@ -145,7 +332,7 @@ router.put(
         ...(publishedEntries !== undefined && { publishedEntries }),
         ...(isArchived !== undefined && { isArchived }),
       });
-      res.json({ piece: updated });
+      res.json({ piece: { ...updated, viewerAccess: req.access } });
     } catch (error) {
       console.error("Update piece error:", error);
       res.status(500).json({ error: error.message });
@@ -240,7 +427,7 @@ router.post(
       const currentStage = newIdx > currentIdx ? stage : existing.currentStage;
 
       const updated = Pieces.update(id, { stageRecords, currentStage });
-      res.json({ piece: updated, imageUrl });
+      res.json({ piece: { ...updated, viewerAccess: req.access }, imageUrl });
     } catch (error) {
       console.error("Piece photo upload error:", error);
       res.status(500).json({ error: error.message });
@@ -279,7 +466,7 @@ router.delete(
           /* best-effort */
         }
       }
-      res.json({ piece: updated });
+      res.json({ piece: { ...updated, viewerAccess: req.access } });
     } catch (error) {
       console.error("Piece photo delete error:", error);
       res.status(500).json({ error: error.message });

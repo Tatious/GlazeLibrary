@@ -259,6 +259,14 @@ export interface Collection {
 // =============================================================================
 
 export type PieceStage = "greenware" | "bisqueware" | "fired";
+export type PieceAccess = "owner" | "editor" | "viewer";
+
+export interface UserSummary {
+  userId: string;
+  displayName: string;
+  photoDataUrl: string | null;
+  email?: string | null;
+}
 
 export interface PieceStageRecord {
   stage: PieceStage;
@@ -322,4 +330,24 @@ export interface PotteryPiece {
   createdAt: string;
   updatedAt: string;
   isArchived: boolean;
+  viewerAccess?: PieceAccess;
+}
+
+export interface PieceCollaborator {
+  userId: string;
+  role: "editor";
+  status: "pending" | "accepted";
+  addedBy: string;
+  addedAt: string;
+  profile: UserSummary;
+}
+
+export interface MyPieces {
+  owned: PotteryPiece[];
+  shared: { piece: PotteryPiece; owner: UserSummary }[];
+  invitations: {
+    piece: Pick<PotteryPiece, "id" | "name">;
+    owner: UserSummary;
+    invitedAt: string;
+  }[];
 }

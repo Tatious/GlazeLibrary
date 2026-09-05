@@ -9,6 +9,7 @@
 export interface Profile {
   id: string;
   display_name: string;
+  photo_data_url?: string | null;
   role: "user" | "admin";
   created_at: string;
   updated_at: string;

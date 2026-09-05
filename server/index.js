@@ -67,7 +67,7 @@ if (isProduction) {
 }
 
 app.use(cors({ origin: corsOrigin }));
-app.use(express.json());
+app.use(express.json({ limit: "400kb" }));
 
 // Always serve uploaded files locally (avoids Vite 404 cache in dev).
 app.use(
@@ -146,6 +146,7 @@ async function startServer() {
     // One-shot migrations (all idempotent via schema_migrations).
     Migrations.addPieceWeightColumn();
     Migrations.addResourceMembersTable();
+    Migrations.addResourceMemberStatusColumn();
     // One-shot: seed the shared inventory table from any existing per-user
     // `my_glazes` rows. Idempotent (tracked in schema_migrations).
     Inventory.seedFromMyGlazes();

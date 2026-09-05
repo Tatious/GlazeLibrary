@@ -11,6 +11,9 @@ import { PageLayout } from "../components/PageLayout";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import { ChevronRight } from "../components/Icons";
+import { ProfilePhotoUpload } from "../components/ProfilePhotoUpload";
+import { UserAvatar } from "../components/UserAvatar";
+import { saveProfilePhoto } from "../api/profileApi";
 
 export function SettingsPage() {
   const {
@@ -22,6 +25,7 @@ export function SettingsPage() {
     updatePassword,
     resendVerificationEmail,
     deleteAccount,
+    refreshProfile,
   } = useAuth();
   const navigate = useNavigate();
 
@@ -108,6 +112,11 @@ export function SettingsPage() {
     } else {
       navigate("/", { replace: true });
     }
+  };
+
+  const handlePhotoSave = async (photoDataUrl: string | null) => {
+    await saveProfilePhoto(photoDataUrl);
+    await refreshProfile();
   };
 
   const resetEmailForm = () => {
@@ -264,6 +273,19 @@ export function SettingsPage() {
             )}
           </div>
         )}
+
+        <div className="mb-6 flex items-center gap-4 pb-6 border-b border-clay-200 dark:border-earth-600">
+          <UserAvatar
+            name={displayName || user.email || "User"}
+            photoDataUrl={profile?.photo_data_url}
+            className="w-16 h-16 text-xl"
+          />
+          <ProfilePhotoUpload
+            hasPhoto={!!profile?.photo_data_url}
+            userName={displayName || user.email || "User"}
+            onSave={handlePhotoSave}
+          />
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

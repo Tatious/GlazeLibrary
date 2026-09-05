@@ -43,6 +43,26 @@ export async function authFetch<T>(
   return text ? (JSON.parse(text) as T) : (undefined as T);
 }
 
+export async function optionalAuthFetch<T>(
+  url: string,
+  init: RequestInit = {},
+): Promise<T> {
+  const user = auth.currentUser;
+  const headers = user ? await bearerHeader() : {};
+  const res = await fetch(url, {
+    ...init,
+    headers: {
+      ...headers,
+      ...(init.headers || {}),
+    },
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || `Request failed: ${res.status}`);
+  }
+  return res.json() as Promise<T>;
+}
+
 export async function authFetchForm<T>(
   url: string,
   formData: FormData,

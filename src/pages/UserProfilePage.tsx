@@ -27,6 +27,7 @@ import { Modal } from "../components/Modal";
 import { PageLayout } from "../components/PageLayout";
 import { EmptyState } from "../components/EmptyState";
 import { Input } from "../components/Input";
+import { UserAvatar } from "../components/UserAvatar";
 import {
   Camera,
   ChevronRight,
@@ -149,6 +150,7 @@ export function UserProfilePage() {
     ? profile?.display_name || user?.email?.split("@")[0] || "User"
     : otherUserProfile?.display_name ||
       `User ${userId?.slice(0, 8) || "Unknown"}`;
+  const displayedProfile = isOwnProfile ? profile : otherUserProfile;
 
   // Get preview images for a collection
   const getCollectionImages = (collection: Collection) => {
@@ -187,9 +189,11 @@ export function UserProfilePage() {
           {/* Avatar. `shrink-0` is load-bearing here — without it the
               gradient swatch collapses into an oval as soon as the name +
               stats column grows past the row's flex budget. */}
-          <div className="w-16 h-16 shrink-0 rounded-full bg-gradient-to-br from-terracotta-400 to-terracotta-600 flex items-center justify-center text-white text-2xl font-bold">
-            {displayName.charAt(0).toUpperCase()}
-          </div>
+          <UserAvatar
+            name={displayName}
+            photoDataUrl={displayedProfile?.photo_data_url}
+            className="w-16 h-16 text-2xl"
+          />
           <div>
             <h1 className="text-2xl font-bold text-clay-800 dark:text-clay-200">
               {displayName}
