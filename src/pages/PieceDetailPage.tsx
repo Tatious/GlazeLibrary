@@ -6,7 +6,7 @@
 import { useState, useEffect, useCallback, useRef, type RefObject } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion, useDragControls, type PanInfo } from "framer-motion";
-import { useRequireAuth } from "../hooks/useRequireAuth";
+import { useAuth } from "../hooks/useAuth";
 import { useGlazes, useCombinations } from "../hooks/useGlazeData";
 import { getPrimaryImage, prefixCdnUrl } from "../utils/glazeUtils";
 import {
@@ -92,6 +92,7 @@ interface InspoCardProps {
   onHoverTargetChange: (target: DropTarget) => void;
   onDropToPlan: (item: CollectionItem) => void;
   onRemove: (item: CollectionItem) => void;
+  canEdit?: boolean;
 }
 
 /**
@@ -112,6 +113,7 @@ function InspoCard({
   onHoverTargetChange,
   onDropToPlan,
   onRemove,
+  canEdit = true,
 }: InspoCardProps) {
   const dragControls = useDragControls();
   const [isDragging, setIsDragging] = useState(false);
@@ -129,7 +131,7 @@ function InspoCard({
 
   return (
     <motion.div
-      drag
+      drag={canEdit}
       dragListener={false}
       dragControls={dragControls}
       dragSnapToOrigin
@@ -158,24 +160,26 @@ function InspoCard({
     >
       {/* Drag handle — only this element starts a drag, so the rest of the
           tile still taps (navigate) and the page still scrolls under touch. */}
-      <button
-        type="button"
-        onPointerDown={(e) => {
-          e.preventDefault();
-          dragControls.start(e);
-        }}
-        style={{
-          touchAction: "none",
-          userSelect: "none",
-          WebkitUserSelect: "none",
-          WebkitTouchCallout: "none",
-        }}
-        className="absolute top-1.5 left-1.5 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-earth-900/85 text-clay-600 dark:text-clay-300 shadow-md backdrop-blur-sm cursor-grab active:cursor-grabbing touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta-500"
-        title="Drag into your glaze plan"
-        aria-label={`Drag ${label} into your glaze plan`}
-      >
-        <GripVertical className="w-5 h-5" />
-      </button>
+      {canEdit && (
+        <button
+          type="button"
+          onPointerDown={(e) => {
+            e.preventDefault();
+            dragControls.start(e);
+          }}
+          style={{
+            touchAction: "none",
+            userSelect: "none",
+            WebkitUserSelect: "none",
+            WebkitTouchCallout: "none",
+          }}
+          className="absolute top-1.5 left-1.5 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-earth-900/85 text-clay-600 dark:text-clay-300 shadow-md backdrop-blur-sm cursor-grab active:cursor-grabbing touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta-500"
+          title="Drag into your glaze plan"
+          aria-label={`Drag ${label} into your glaze plan`}
+        >
+          <GripVertical className="w-5 h-5" />
+        </button>
+      )}
 
       <Link to={href} className="block" draggable={false}>
         <div className="aspect-square bg-clay-100 dark:bg-earth-700">
@@ -211,19 +215,21 @@ function InspoCard({
       </Link>
 
       {/* Remove button */}
-      <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          onRemove(item);
-        }}
-        className="absolute top-1.5 right-1.5 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-earth-900/85 text-clay-700 dark:text-clay-200 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white shadow-md backdrop-blur-sm transition-colors touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
-        title="Remove inspiration"
-        aria-label="Remove inspiration"
-      >
-        <Close strokeWidth={2.5} />
-      </button>
+      {canEdit && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onRemove(item);
+          }}
+          className="absolute top-1.5 right-1.5 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 dark:bg-earth-900/85 text-clay-700 dark:text-clay-200 hover:bg-red-500 hover:text-white dark:hover:bg-red-500 dark:hover:text-white shadow-md backdrop-blur-sm transition-colors touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+          title="Remove inspiration"
+          aria-label="Remove inspiration"
+        >
+          <Close strokeWidth={2.5} />
+        </button>
+      )}
     </motion.div>
   );
 }
@@ -234,7 +240,7 @@ function InspoCard({
 
 export function PieceDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { user, isLoading: authLoading } = useRequireAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [piece, setPiece] = useState<PotteryPiece | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -282,8 +288,9 @@ export function PieceDetailPage() {
   }, [id, navigate]);
 
   useEffect(() => {
+    if (authLoading) return;
     loadPiece();
-  }, [loadPiece]);
+  }, [authLoading, user?.uid, loadPiece]);
 
   const handleSaveEdit = async () => {
     if (!piece || !user) return;
@@ -503,6 +510,11 @@ export function PieceDetailPage() {
                     Archived
                   </span>
                 )}
+                {!canEdit && (
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-clay-100 dark:bg-earth-700 text-clay-500 dark:text-clay-400">
+                    View only
+                  </span>
+                )}
               </div>
               {/* Subtitle: clay body · created date · weight. All optional
                   pieces of metadata go on the same line joined with a
@@ -680,11 +692,13 @@ export function PieceDetailPage() {
                     </div>
 
                     {/* Stage actions for owner */}
-                    {canEdit && (isDone || isCurrent) && (
+                    {((record && (record.photos.length > 0 || record.notes)) ||
+                      (canEdit && (isDone || isCurrent))) && (
                       <StagePhotoUpload
                         piece={piece}
                         stage={stage}
                         onUploaded={setPiece}
+                        canEdit={canEdit}
                       />
                     )}
 
@@ -708,27 +722,30 @@ export function PieceDetailPage() {
       </div>
 
       {/* Glazes section */}
-      {canEdit && (
-        <div className="mb-6">
-          <GlazesSection
-            piece={piece}
-            onUpdated={setPiece}
-            cardRef={planCardRef}
-            dragActive={inspoDragActive}
-            dropActive={inspoDropTarget === "plan"}
-          />
-        </div>
-      )}
+      <div className="mb-6">
+        <GlazesSection
+          piece={piece}
+          onUpdated={setPiece}
+          canEdit={canEdit}
+          cardRef={planCardRef}
+          dragActive={canEdit && inspoDragActive}
+          dropActive={canEdit && inspoDropTarget === "plan"}
+        />
+      </div>
 
       {/* Glaze Inspo section */}
-      {canEdit && (
+      {(canEdit || (piece.inspoLikes || []).length > 0) && (
         <div className="bg-white dark:bg-earth-800 rounded-xl p-6 shadow-sm border-2 border-clay-200 dark:border-earth-600 mb-6">
           <div className="flex items-center justify-between mb-4 gap-3">
             <div className="min-w-0">
               <h2 className="text-lg font-semibold text-clay-800 dark:text-clay-200">Glaze Inspo</h2>
-              <p className="text-xs text-clay-400 dark:text-clay-500 mt-0.5">Save glazes &amp; combos to consider — drag one onto your plan to use it</p>
+              <p className="text-xs text-clay-400 dark:text-clay-500 mt-0.5">
+                {canEdit
+                  ? "Save glazes & combos to consider — drag one onto your plan to use it"
+                  : "Glazes and combinations considered for this piece"}
+              </p>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            {canEdit && <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={handleOpenImportCollection}
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-clay-300 dark:border-earth-600 text-clay-600 dark:text-clay-400 hover:bg-clay-50 dark:hover:bg-earth-700 transition-colors whitespace-nowrap"
@@ -737,11 +754,11 @@ export function PieceDetailPage() {
                 <span className="hidden xs:inline xsl:inline">Import collection</span>
                 <span className="xs:hidden xsl:hidden">Import</span>
               </button>
-            </div>
+            </div>}
           </div>
 
           {/* Import collection picker */}
-          {showImportCollection && (
+          {canEdit && showImportCollection && (
             <div className="mb-4 p-3 rounded-lg bg-clay-50 dark:bg-earth-750 border border-clay-200 dark:border-earth-600">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-clay-700 dark:text-clay-300">Pick a collection to import</span>
@@ -823,6 +840,7 @@ export function PieceDetailPage() {
                       onHoverTargetChange={setInspoDropTarget}
                       onDropToPlan={handleAddInspoToPlan}
                       onRemove={handleRemoveInspo}
+                      canEdit={canEdit}
                     />
                   );
                 })}
@@ -836,7 +854,7 @@ export function PieceDetailPage() {
               boots straight into select mode targeting this piece. The
               Discover button opens the swipe view directly on the piece's
               inspo collection so the deck inherits its `swipeProgress`. */}
-          <div className="flex items-center gap-2 flex-wrap">
+          {canEdit && <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm text-clay-400 dark:text-clay-500">
               {(piece.inspoLikes || []).length === 0 ? "Browse:" : "Add more:"}
             </span>
@@ -850,7 +868,7 @@ export function PieceDetailPage() {
                 Discover
               </Link>
             )}
-          </div>
+          </div>}
         </div>
       )}
 

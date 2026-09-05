@@ -29,6 +29,7 @@ import { ChevronRight, Close, GlazeSwatch, Pencil, Swap, Upload } from "../Icons
 interface GlazesSectionProps {
   piece: PotteryPiece;
   onUpdated: (updated: PotteryPiece) => void;
+  canEdit?: boolean;
   /** Attached to the panel root so the Glaze Inspo grid (a drag source) can
    *  hit-test whether an item was dropped onto the plan. */
   cardRef?: Ref<HTMLDivElement>;
@@ -41,7 +42,7 @@ interface GlazesSectionProps {
 const inputCls =
   "px-3 py-2 text-sm rounded-lg border-2 border-clay-300 dark:border-earth-600 bg-white dark:bg-earth-700 text-clay-800 dark:text-clay-200 placeholder-clay-400 dark:placeholder-clay-500 focus:outline-none focus:ring-2 focus:ring-sage-500/40 focus:border-sage-400";
 
-export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActive }: GlazesSectionProps) {
+export function GlazesSection({ piece, onUpdated, canEdit = true, cardRef, dragActive, dropActive }: GlazesSectionProps) {
   const { data: allGlazes } = useGlazes();
   const [isAdding, setIsAdding] = useState(false);
   const [label, setLabel] = useState("");
@@ -302,7 +303,7 @@ export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActiv
         <h2 className="text-lg font-semibold text-clay-800 dark:text-clay-200">
           Glaze Plan
         </h2>
-        {!isAdding && editingIndex === null && (
+        {canEdit && !isAdding && editingIndex === null && (
           <button
             onClick={() => setIsAdding(true)}
             className="text-sm text-terracotta-600 dark:text-terracotta-400 hover:underline font-medium"
@@ -315,7 +316,9 @@ export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActiv
       {/* Existing entries */}
       {piece.glazes.length === 0 && !isAdding && (
         <p className="text-sm text-clay-500 dark:text-clay-400">
-          No glaze plan yet. Add a glaze or combination to start planning.
+          {canEdit
+            ? "No glaze plan yet. Add a glaze or combination to start planning."
+            : "No glaze plan has been added."}
         </p>
       )}
 
@@ -446,7 +449,7 @@ export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActiv
                       >
                         <ChevronRight />
                       </Link>
-                    ) : (
+                    ) : canEdit ? (
                       <Link
                         to={(() => {
                           const params = new URLSearchParams();
@@ -465,16 +468,18 @@ export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActiv
                       >
                         <Upload />
                       </Link>
+                    ) : null}
+                    {canEdit && (
+                      <button
+                        onClick={() => startEdit(i)}
+                        className="p-1.5 text-clay-400 hover:text-terracotta-600 dark:hover:text-terracotta-400 transition-colors"
+                        title="Edit"
+                        aria-label="Edit glaze"
+                      >
+                        <Pencil />
+                      </button>
                     )}
-                    <button
-                      onClick={() => startEdit(i)}
-                      className="p-1.5 text-clay-400 hover:text-terracotta-600 dark:hover:text-terracotta-400 transition-colors"
-                      title="Edit"
-                      aria-label="Edit glaze"
-                    >
-                      <Pencil />
-                    </button>
-                    {isCombo && (
+                    {canEdit && isCombo && (
                       <button
                         onClick={() => handleSwap(i)}
                         className="p-1.5 text-clay-400 hover:text-terracotta-600 dark:hover:text-terracotta-400 transition-colors"
@@ -484,13 +489,15 @@ export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActiv
                         <Swap />
                       </button>
                     )}
-                    <button
-                      onClick={() => handleRemove(i)}
-                      className="p-1.5 text-clay-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
-                      title="Remove"
-                    >
-                      <Close />
-                    </button>
+                    {canEdit && (
+                      <button
+                        onClick={() => handleRemove(i)}
+                        className="p-1.5 text-clay-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                        title="Remove"
+                      >
+                        <Close />
+                      </button>
+                    )}
                   </div>
                 </div>
               </li>
@@ -500,7 +507,7 @@ export function GlazesSection({ piece, onUpdated, cardRef, dragActive, dropActiv
       )}
 
       {/* Add form (editing an existing row renders in-place in the list above) */}
-      {isAdding && (
+      {canEdit && isAdding && (
         <div className="pt-3 border-t border-clay-200 dark:border-earth-600">
           {renderForm()}
         </div>

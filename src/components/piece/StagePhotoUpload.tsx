@@ -28,12 +28,14 @@ interface StagePhotoUploadProps {
   piece: PotteryPiece;
   stage: PieceStage;
   onUploaded: (updated: PotteryPiece) => void;
+  canEdit?: boolean;
 }
 
 export function StagePhotoUpload({
   piece,
   stage,
   onUploaded,
+  canEdit = true,
 }: StagePhotoUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -110,13 +112,15 @@ export function StagePhotoUpload({
 
   return (
     <div>
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-      />
+      {canEdit && (
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+      )}
 
       {/* Photos. Tiles are always a perfect square so the grid stays
           uniform regardless of photo orientation. The photo inside uses
@@ -186,26 +190,28 @@ export function StagePhotoUpload({
           is the page's most-frequent activity, so we don't gate it behind
           an edit-mode toggle. The only destructive action (photo delete)
           lives in the fullscreen lightbox with a two-tap confirm. */}
-      <div className="flex items-center gap-4 text-sm">
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          disabled={isUploading}
-          className="inline-flex items-center gap-1.5 font-medium text-terracotta-600 dark:text-terracotta-400 hover:text-terracotta-700 dark:hover:text-terracotta-300 transition-colors disabled:opacity-50"
-        >
-          <Camera className="w-4 h-4 shrink-0" />
-          {isUploading ? "Uploading…" : "Add photo"}
-        </button>
+      {canEdit && (
+        <div className="flex items-center gap-4 text-sm">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isUploading}
+            className="inline-flex items-center gap-1.5 font-medium text-terracotta-600 dark:text-terracotta-400 hover:text-terracotta-700 dark:hover:text-terracotta-300 transition-colors disabled:opacity-50"
+          >
+            <Camera className="w-4 h-4 shrink-0" />
+            {isUploading ? "Uploading…" : "Add photo"}
+          </button>
 
-        <button
-          type="button"
-          onClick={() => setShowNotesInput((v) => !v)}
-          className="inline-flex items-center gap-1.5 font-medium text-clay-500 dark:text-clay-400 hover:text-clay-700 dark:hover:text-clay-200 transition-colors"
-        >
-          <Pencil className="w-4 h-4 shrink-0" />
-          {record?.notes ? "Edit notes" : "Add notes"}
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={() => setShowNotesInput((v) => !v)}
+            className="inline-flex items-center gap-1.5 font-medium text-clay-500 dark:text-clay-400 hover:text-clay-700 dark:hover:text-clay-200 transition-colors"
+          >
+            <Pencil className="w-4 h-4 shrink-0" />
+            {record?.notes ? "Edit notes" : "Add notes"}
+          </button>
+        </div>
+      )}
 
       {/* Notes display — visible whenever notes exist and the editor
           isn't open. */}
@@ -216,7 +222,7 @@ export function StagePhotoUpload({
       )}
 
       {/* Notes input — toggled by the "Add/Edit notes" chip above. */}
-      {showNotesInput && (
+      {canEdit && showNotesInput && (
         <div className="mt-3 space-y-2">
           <textarea
             value={stageNotes}
@@ -273,7 +279,7 @@ export function StagePhotoUpload({
               : undefined
           }
           onDelete={
-            viewerIndex !== null
+            canEdit && viewerIndex !== null
               ? () => handleDeletePhoto(record.photos[viewerIndex])
               : undefined
           }
